@@ -69,7 +69,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           ? 'Watching can be from anywhere'
                           : currentStep == 2
                           ? "Complete list of movies"
-                          : "Spent Time with Loved Ones!",
+                          : "Spend Time with Loved Ones!",
                       textAlign: TextAlign.center,
                       style: AppTextStyles.h6Bold.copyWith(
                         color: AppColors.black,
@@ -108,7 +108,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     _buildStepIndicator()
                   else
                     GestureDetector(
-                      onTap: () => Get.offNamed(AppRoutes.signIn),
+                      onTap: () => Get.toNamed(AppRoutes.signIn),
                       child: Text(
                         "Sign In",
                         style: AppTextStyles.bodyMediumBold.copyWith(
