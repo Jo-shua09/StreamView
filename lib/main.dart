@@ -5,6 +5,7 @@ import 'package:streamview/features/auth/view/create_new_password.dart';
 import 'package:streamview/features/auth/view/forgot_password.dart';
 import 'package:streamview/features/auth/view/sign_in.dart';
 import 'package:streamview/features/auth/view/sign_up.dart';
+import 'package:streamview/features/profile/view/create_profile.dart';
 import 'core/routes/app_pages.dart';
 import 'core/themes/app_theme.dart';
 import 'core/widgets/splash_screen.dart';
@@ -43,6 +44,10 @@ class StreamViewApp extends StatelessWidget {
         GetPage(
           name: AppRoutes.createNewPassword,
           page: () => const CreateNewPassword(),
+        ),
+        GetPage(
+          name: AppRoutes.createProfile,
+          page: () => const CreateProfile(),
         ),
         GetPage(name: AppRoutes.home, page: () => const HomeScreen()),
       ],
