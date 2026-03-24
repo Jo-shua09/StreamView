@@ -11,6 +11,8 @@ class TextFieldWidget extends StatelessWidget {
     this.controller,
     this.obscureText = false,
     this.keyboardType = TextInputType.text,
+    this.onTap,
+    this.readOnly = false,
   });
 
   final String labelText;
@@ -19,6 +21,8 @@ class TextFieldWidget extends StatelessWidget {
   final TextEditingController? controller;
   final bool obscureText;
   final TextInputType keyboardType;
+  final VoidCallback? onTap;
+  final bool readOnly;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +38,8 @@ class TextFieldWidget extends StatelessWidget {
           controller: controller,
           obscureText: obscureText,
           keyboardType: keyboardType,
+          onTap: onTap,
+          readOnly: readOnly,
           style: AppTextStyles.bodyMediumBold.copyWith(color: AppColors.black),
           decoration: InputDecoration(
             hintText: hintText,

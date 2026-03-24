@@ -4,10 +4,22 @@ import 'package:streamview/core/routes/app_pages.dart';
 import 'package:streamview/core/themes/app_colors.dart';
 import 'package:streamview/core/themes/app_text_styles.dart';
 import 'package:streamview/core/widgets/text_field_widget.dart';
-import 'package:streamview/core/widgets/custom_icon.dart';
 
-class SignUp extends StatelessWidget {
+class SignUp extends StatefulWidget {
   const SignUp({super.key});
+
+  @override
+  State<SignUp> createState() => _SignUpState();
+}
+
+class _SignUpState extends State<SignUp> {
+  final TextEditingController _birthdayController = TextEditingController();
+
+  @override
+  void dispose() {
+    _birthdayController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,9 +50,28 @@ class SignUp extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             TextFieldWidget(
-              hintText: '',
+              hintText: 'DD/MM/YYYY',
               labelText: 'Birthday',
-              keyboardType: TextInputType.text,
+              keyboardType: TextInputType.datetime,
+              controller: _birthdayController,
+              readOnly: true,
+              onTap: () async {
+                DateTime? pickedDate = await showDatePicker(
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime(
+                    1900,
+                  ), // Setting the earliest allowed date
+                  lastDate:
+                      DateTime.now(), // Disable future dates for birthdays
+                );
+
+                if (pickedDate != null) {
+                  String formattedDate =
+                      "${pickedDate.day.toString().padLeft(2, '0')}/${pickedDate.month.toString().padLeft(2, '0')}/${pickedDate.year}";
+                  _birthdayController.text = formattedDate;
+                }
+              },
             ),
             const SizedBox(height: 20),
             TextFieldWidget(
@@ -48,7 +79,7 @@ class SignUp extends StatelessWidget {
               labelText: 'Password',
               keyboardType: TextInputType.text,
               obscureText: true,
-              suffixIcon: const Icon(Icons.visibility_off_outlined),
+              suffixIcon: const Icon(Icons.visibility_off_outlined, size: 20),
             ),
             const SizedBox(height: 20),
             TextFieldWidget(
@@ -56,7 +87,7 @@ class SignUp extends StatelessWidget {
               labelText: 'Confirm Password',
               keyboardType: TextInputType.text,
               obscureText: true,
-              suffixIcon: const Icon(Icons.visibility_off_outlined),
+              suffixIcon: const Icon(Icons.visibility_off_outlined, size: 20),
             ),
             const SizedBox(height: 10),
             Row(

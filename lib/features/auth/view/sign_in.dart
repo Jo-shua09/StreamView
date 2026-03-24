@@ -42,7 +42,7 @@ class SignIn extends StatelessWidget {
               labelText: 'Password',
               keyboardType: TextInputType.text,
               obscureText: true,
-              suffixIcon: const Icon(Icons.visibility_off_outlined),
+              suffixIcon: const Icon(Icons.visibility_off_outlined, size: 20),
             ),
             const SizedBox(height: 30),
             ElevatedButton(
