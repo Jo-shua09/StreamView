@@ -27,7 +27,7 @@ class TextFieldWidget extends StatelessWidget {
       children: [
         Text(
           labelText,
-          style: AppTextStyles.bodyMediumBold.copyWith(color: AppColors.black),
+          style: AppTextStyles.bodyMediumBold.copyWith(color: AppColors.gray70),
         ),
         const SizedBox(height: 8),
         TextField(
@@ -52,6 +52,10 @@ class TextFieldWidget extends StatelessWidget {
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(50),
               borderSide: const BorderSide(color: AppColors.gray20),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(50),
+              borderSide: const BorderSide(color: AppColors.error),
             ),
           ),
         ),

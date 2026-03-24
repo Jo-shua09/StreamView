@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:streamview/features/auth/view/OTP.dart';
+import 'package:streamview/features/auth/view/create_new_password.dart';
+import 'package:streamview/features/auth/view/forgot_password.dart';
 import 'package:streamview/features/auth/view/sign_in.dart';
 import 'package:streamview/features/auth/view/sign_up.dart';
 import 'core/routes/app_pages.dart';
@@ -32,6 +35,15 @@ class StreamViewApp extends StatelessWidget {
         ),
         GetPage(name: AppRoutes.signIn, page: () => const SignIn()),
         GetPage(name: AppRoutes.signUp, page: () => const SignUp()),
+        GetPage(name: AppRoutes.otp, page: () => const OTP()),
+        GetPage(
+          name: AppRoutes.forgotPassword,
+          page: () => const ForgotPassword(),
+        ),
+        GetPage(
+          name: AppRoutes.createNewPassword,
+          page: () => const CreateNewPassword(),
+        ),
         GetPage(name: AppRoutes.home, page: () => const HomeScreen()),
       ],
     );

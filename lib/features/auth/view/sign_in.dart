@@ -45,11 +45,14 @@ class SignIn extends StatelessWidget {
               suffixIcon: const Icon(Icons.visibility_off_outlined),
             ),
             const SizedBox(height: 30),
-            ElevatedButton(onPressed: () {}, child: Text('Continue')),
+            ElevatedButton(
+              onPressed: () => Get.toNamed(AppRoutes.home),
+              child: Text('Continue'),
+            ),
             const SizedBox(height: 10),
             Center(
               child: TextButton(
-                onPressed: () {},
+                onPressed: () => Get.toNamed(AppRoutes.forgotPassword),
                 child: Text(
                   'Forgot Password?',
                   style: AppTextStyles.bodyMediumBold.copyWith(
