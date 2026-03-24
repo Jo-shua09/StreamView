@@ -20,7 +20,7 @@ class CustomIcon extends StatelessWidget {
       'assets/icons/$iconName.svg',
       height: size,
       width: size,
-      colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
+      // colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
     );
   }
 }

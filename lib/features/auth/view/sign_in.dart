@@ -4,6 +4,7 @@ import 'package:streamview/core/routes/app_pages.dart';
 import 'package:streamview/core/themes/app_colors.dart';
 import 'package:streamview/core/themes/app_text_styles.dart';
 import 'package:streamview/core/widgets/text_field_widget.dart';
+import 'package:streamview/core/widgets/custom_icon.dart';
 
 class SignIn extends StatelessWidget {
   const SignIn({super.key});
@@ -77,7 +78,9 @@ class SignIn extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 30),
-            _socialLogin(),
+            _socialLogin('Continue with Google', 'google'),
+            _socialLogin('Continue with Apple', 'apple'),
+            _socialLogin('Continue with Facebook', 'facebook'),
 
             const Spacer(),
             Row(
@@ -106,19 +109,39 @@ class SignIn extends StatelessWidget {
     );
   }
 
-  Widget _socialLogin() {
+  Widget _socialLogin(name, icon) {
     return Expanded(
-      child: SizedBox(
-        width: double.infinity,
-        height: 40,
-        child: Container(
-          decoration: BoxDecoration(
-            color: AppColors.white,
-            borderRadius: BorderRadius.circular(50),
-            border: Border.all(color: AppColors.gray20),
+      child: Column(
+        children: [
+          SizedBox(
+            width: double.infinity,
+            height: 45,
+            child: Container(
+              decoration: BoxDecoration(
+                color: AppColors.white,
+                borderRadius: BorderRadius.circular(50),
+                border: Border.all(color: AppColors.gray80),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    children: [
+                      CustomIcon(iconName: icon, size: 20),
+                      const SizedBox(width: 10),
+                      Text(
+                        name,
+                        style: AppTextStyles.bodyMediumBold.copyWith(
+                          color: AppColors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
           ),
-          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: []),
-        ),
+        ],
       ),
     );
   }
