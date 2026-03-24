@@ -107,9 +107,9 @@ class SignUp extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () => Get.toNamed(AppRoutes.otp),
+              onPressed: () => Get.toNamed(AppRoutes.home),
               child: Text('Continue'),
             ),
           ],
