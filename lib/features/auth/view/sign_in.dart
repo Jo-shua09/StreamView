@@ -26,91 +26,87 @@ class SignIn extends StatelessWidget {
           style: AppTextStyles.h6Bold.copyWith(color: AppColors.black),
         ),
       ),
-      body: Expanded(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TextFieldWidget(
-                hintText: 'example@example.com',
-                labelText: 'Email',
-                keyboardType: TextInputType.emailAddress,
-              ),
-              const SizedBox(height: 20),
-              TextFieldWidget(
-                hintText: 'Password',
-                labelText: 'Password',
-                keyboardType: TextInputType.text,
-                obscureText: true,
-                suffixIcon: const Icon(Icons.visibility_off_outlined, size: 20),
-              ),
-              const SizedBox(height: 30),
-              ElevatedButton(
-                onPressed: () => Get.toNamed(AppRoutes.home),
-                child: Text('Continue'),
-              ),
-              const SizedBox(height: 10),
-              Center(
-                child: TextButton(
-                  onPressed: () => Get.toNamed(AppRoutes.forgotPassword),
-                  child: Text(
-                    'Forgot Password?',
-                    style: AppTextStyles.bodyMediumBold.copyWith(
-                      color: AppColors.primary,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  style: TextButton.styleFrom(
-                    foregroundColor: AppColors.primary,
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TextFieldWidget(
+              hintText: 'example@example.com',
+              labelText: 'Email',
+              keyboardType: TextInputType.emailAddress,
+            ),
+            const SizedBox(height: 20),
+            TextFieldWidget(
+              hintText: 'Password',
+              labelText: 'Password',
+              keyboardType: TextInputType.text,
+              obscureText: true,
+              suffixIcon: const Icon(Icons.visibility_off_outlined, size: 20),
+            ),
+            const SizedBox(height: 30),
+            ElevatedButton(
+              onPressed: () => Get.offAllNamed(AppRoutes.home),
+              child: Text('Continue'),
+            ),
+            const SizedBox(height: 10),
+            Center(
+              child: TextButton(
+                onPressed: () => Get.toNamed(AppRoutes.forgotPassword),
+                child: Text(
+                  'Forgot Password?',
+                  style: AppTextStyles.bodyMediumBold.copyWith(
+                    color: AppColors.primary,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
+                style: TextButton.styleFrom(foregroundColor: AppColors.primary),
               ),
+            ),
 
-              const SizedBox(height: 30),
-              Row(
-                children: [
-                  const Expanded(child: Divider(color: AppColors.gray20)),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Text(
-                      'or',
-                      style: AppTextStyles.bodyMediumBold.copyWith(
-                        color: AppColors.gray60,
-                      ),
-                    ),
-                  ),
-                  const Expanded(child: Divider(color: AppColors.gray20)),
-                ],
-              ),
-              const SizedBox(height: 30),
-              _socialLogin('Continue with Google', 'google'),
-              _socialLogin('Continue with Apple', 'apple'),
-              _socialLogin('Continue with Facebook', 'facebook'),
-
-              const Spacer(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Don't have an account? ",
+            const SizedBox(height: 30),
+            Row(
+              children: [
+                const Expanded(child: Divider(color: AppColors.gray20)),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Text(
+                    'or',
                     style: AppTextStyles.bodyMediumBold.copyWith(
                       color: AppColors.gray60,
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () => Get.toNamed(AppRoutes.signUp),
-                    child: Text(
-                      "Sign Up",
-                      style: AppTextStyles.bodyMediumBold.copyWith(
-                        color: AppColors.primary,
-                      ),
+                ),
+                const Expanded(child: Divider(color: AppColors.gray20)),
+              ],
+            ),
+            const SizedBox(height: 30),
+            _socialLogin('Continue with Google', 'google'),
+            _socialLogin('Continue with Apple', 'apple'),
+            _socialLogin('Continue with Facebook', 'facebook'),
+
+            const Spacer(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Don't have an account? ",
+                  style: AppTextStyles.bodyMediumBold.copyWith(
+                    color: AppColors.gray60,
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () => Get.toNamed(AppRoutes.signUp),
+                  child: Text(
+                    "Sign Up",
+                    style: AppTextStyles.bodyMediumBold.copyWith(
+                      color: AppColors.primary,
                     ),
                   ),
-                ],
-              ),
-            ],
-          ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

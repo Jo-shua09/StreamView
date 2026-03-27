@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:streamview/core/routes/app_pages.dart';
 import 'package:streamview/core/themes/app_colors.dart';
 import 'package:streamview/core/themes/app_text_styles.dart';
 
-class Otp extends StatelessWidget {
-  const Otp({super.key});
+class ProfilePin extends StatelessWidget {
+  const ProfilePin({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class Otp extends StatelessWidget {
           icon: Icon(Icons.arrow_back_ios_outlined),
         ),
         title: Text(
-          'OTP Verification',
+          'Create Profile Pin',
           style: AppTextStyles.h6Bold.copyWith(color: AppColors.black),
         ),
       ),
@@ -29,23 +30,13 @@ class Otp extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Center(
-              child: Column(
-                children: [
-                  Text(
-                    'We’ve just send you 4 digits code to your email',
-                    style: AppTextStyles.bodyMediumBold.copyWith(
-                      color: AppColors.gray50,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                  Text(
-                    'example@example.com',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.black,
-                    ),
-                  ),
-                ],
+              child: Text(
+                'Set a 4-digit PIN to prevent others from accessing this profile',
+                style: AppTextStyles.bodyMediumBold.copyWith(
+                  color: AppColors.gray80,
+                  fontWeight: FontWeight.w500,
+                ),
+                textAlign: TextAlign.center,
               ),
             ),
 
@@ -91,29 +82,9 @@ class Otp extends StatelessWidget {
             ),
 
             const SizedBox(height: 50),
-            ElevatedButton(onPressed: () {}, child: Text('Continue')),
-
-            const SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Didn\'t receive a code?',
-                  style: AppTextStyles.bodySmallSemi.copyWith(
-                    color: AppColors.gray50,
-                  ),
-                ),
-                const SizedBox(width: 5),
-                GestureDetector(
-                  onTap: () {},
-                  child: Text(
-                    'Resend Code',
-                    style: AppTextStyles.bodySmallSemi.copyWith(
-                      color: AppColors.primary,
-                    ),
-                  ),
-                ),
-              ],
+            ElevatedButton(
+              onPressed: () => Get.toNamed(AppRoutes.home),
+              child: Text('Create Pin'),
             ),
           ],
         ),

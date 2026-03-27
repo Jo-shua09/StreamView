@@ -18,7 +18,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     if (currentStep < 3) {
       setState(() => currentStep++);
     } else {
-      Get.offNamed(AppRoutes.signUp);
+      Get.toNamed(AppRoutes.signUp);
     }
   }
 
