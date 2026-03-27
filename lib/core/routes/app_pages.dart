@@ -8,5 +8,6 @@ class AppRoutes {
   static const String createNewPassword = '/create-new-password';
   static const String createProfile = '/create-profile';
   static const String profilePin = '/profile-pin';
+  static const String sharing = '/sharing';
   static const String home = '/home';
 }

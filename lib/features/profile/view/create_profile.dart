@@ -151,13 +151,13 @@ class _CreateProfileState extends State<CreateProfile> {
             ),
             const Spacer(),
             ElevatedButton(
-              onPressed: () => Get.toNamed(AppRoutes.profilePin),
+              onPressed: () => Get.offAllNamed(AppRoutes.profilePin),
               child: const Text('Continue'),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 20),
             Center(
               child: TextButton(
-                onPressed: () => Get.toNamed(AppRoutes.profilePin),
+                onPressed: () => Get.offAllNamed(AppRoutes.sharing),
                 child: Text(
                   'Without Pin',
                   style: AppTextStyles.bodyMediumBold.copyWith(

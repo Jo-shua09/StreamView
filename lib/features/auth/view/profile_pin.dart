@@ -83,7 +83,7 @@ class ProfilePin extends StatelessWidget {
 
             const SizedBox(height: 50),
             ElevatedButton(
-              onPressed: () => Get.toNamed(AppRoutes.home),
+              onPressed: () => Get.toNamed(AppRoutes.sharing),
               child: Text('Create Pin'),
             ),
           ],
