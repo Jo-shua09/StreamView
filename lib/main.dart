@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:streamview/core/widgets/family_sharing.dart';
-import 'package:streamview/core/widgets/interest.dart';
+import 'package:streamview/core/widgets/interest_screen.dart';
 import 'package:streamview/features/auth/view/otp.dart';
 import 'package:streamview/features/auth/view/create_new_password.dart';
 import 'package:streamview/features/auth/view/forgot_password.dart';
@@ -54,7 +54,7 @@ class StreamViewApp extends StatelessWidget {
         ),
         GetPage(name: AppRoutes.profilePin, page: () => const ProfilePin()),
         GetPage(name: AppRoutes.sharing, page: () => const FamilySharing()),
-        GetPage(name: AppRoutes.interest, page: () => const Interest()),
+        GetPage(name: AppRoutes.interest, page: () => const InterestScreen()),
         GetPage(name: AppRoutes.home, page: () => const HomeScreen()),
       ],
     );
