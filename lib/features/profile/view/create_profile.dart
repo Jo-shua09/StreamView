@@ -151,7 +151,7 @@ class _CreateProfileState extends State<CreateProfile> {
             ),
             const Spacer(),
             ElevatedButton(
-              onPressed: () => Get.offAllNamed(AppRoutes.profilePin),
+              onPressed: () => Get.toNamed(AppRoutes.profilePin),
               child: const Text('Continue'),
             ),
             const SizedBox(height: 20),

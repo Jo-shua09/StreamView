@@ -40,7 +40,7 @@ class FamilySharing extends StatelessWidget {
           ),
           SafeArea(
             child: Padding(
-              padding: const EdgeInsets.all(24.0),
+              padding: const EdgeInsets.all(20.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -63,13 +63,13 @@ class FamilySharing extends StatelessWidget {
                   ),
                   const SizedBox(height: 30),
                   ElevatedButton(
-                    onPressed: () => Get.offAllNamed(AppRoutes.profilePin),
+                    onPressed: () => Get.offAllNamed(AppRoutes.interest),
                     child: const Text('Continue'),
                   ),
                   const SizedBox(height: 16),
                   Center(
                     child: TextButton(
-                      onPressed: () => Get.offAllNamed(AppRoutes.sharing),
+                      onPressed: () => Get.offAllNamed(AppRoutes.home),
                       child: Text(
                         'Skip for Now',
                         style: AppTextStyles.bodyMediumBold.copyWith(

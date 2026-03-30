@@ -9,5 +9,6 @@ class AppRoutes {
   static const String createProfile = '/create-profile';
   static const String profilePin = '/profile-pin';
   static const String sharing = '/sharing';
+  static const String interest = '/interest';
   static const String home = '/home';
 }
