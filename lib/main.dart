@@ -34,21 +34,34 @@ class StreamViewApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       initialRoute: AppRoutes.splash,
       getPages: [
-        GetPage(
-          name: AppRoutes.mainNav,
-          page: () => const MainNavigation(),
-          transition: Transition.fadeIn,
-        ),
+        GetPage(name: AppRoutes.mainNav, page: () => const MainNavigation()),
         GetPage(name: AppRoutes.splash, page: () => const SplashScreen()),
         GetPage(
           name: AppRoutes.onboarding,
           page: () => const OnboardingScreen(),
-          transition: Transition.fadeIn, // Professional fade-in transition
+          transition: Transition.zoom,
+          transitionDuration: const Duration(milliseconds: 1000),
+        ),
+
+        //!! App Authentication Routes
+        GetPage(
+          name: AppRoutes.signIn,
+          page: () => const SignIn(),
+          transition: Transition.leftToRightWithFade,
           transitionDuration: const Duration(milliseconds: 600),
         ),
-        GetPage(name: AppRoutes.signIn, page: () => const SignIn()),
-        GetPage(name: AppRoutes.signUp, page: () => const SignUp()),
-        GetPage(name: AppRoutes.otp, page: () => const Otp()),
+        GetPage(
+          name: AppRoutes.signUp,
+          page: () => const SignUp(),
+          transition: Transition.leftToRightWithFade,
+          transitionDuration: const Duration(milliseconds: 600),
+        ),
+        GetPage(
+          name: AppRoutes.otp,
+          page: () => const Otp(),
+          transition: Transition.leftToRightWithFade,
+          transitionDuration: const Duration(milliseconds: 600),
+        ),
         GetPage(
           name: AppRoutes.forgotPassword,
           page: () => const ForgotPassword(),
@@ -62,8 +75,12 @@ class StreamViewApp extends StatelessWidget {
           page: () => const CreateProfile(),
         ),
         GetPage(name: AppRoutes.profilePin, page: () => const ProfilePin()),
+
+        //!! App Feature Routes
         GetPage(name: AppRoutes.sharing, page: () => const FamilySharing()),
         GetPage(name: AppRoutes.interest, page: () => const InterestScreen()),
+
+        //!! App Core Routes
         GetPage(name: AppRoutes.home, page: () => const HomeScreen()),
         GetPage(name: AppRoutes.search, page: () => const SearchScreen()),
         GetPage(name: AppRoutes.downloads, page: () => const DownloadScreen()),

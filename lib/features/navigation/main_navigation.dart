@@ -15,7 +15,6 @@ class MainNavigation extends StatefulWidget {
 class _MainNavigationState extends State<MainNavigation> {
   int _currentIndex = 0;
 
-  // List of screens for the Bottom Nav
   final List<Widget> _pages = [
     const HomeScreen(),
     const SearchScreen(),
@@ -26,8 +25,25 @@ class _MainNavigationState extends State<MainNavigation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // IndexedStack keeps the scroll position alive on all screens
-      body: IndexedStack(index: _currentIndex, children: _pages),
+      body: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 400),
+        transitionBuilder: (Widget child, Animation<double> animation) {
+          return FadeTransition(
+            opacity: animation,
+            child: SlideTransition(
+              position: Tween<Offset>(
+                begin: const Offset(0.02, 0),
+                end: Offset.zero,
+              ).animate(animation),
+              child: child,
+            ),
+          );
+        },
+        child: Container(
+          key: ValueKey<int>(_currentIndex),
+          child: _pages[_currentIndex],
+        ),
+      ),
       bottomNavigationBar: BottomNavigationBarWidget(
         currentIndex: _currentIndex,
         onTap: (index) {
