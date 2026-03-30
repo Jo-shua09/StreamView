@@ -1,4 +1,5 @@
 class AppRoutes {
+  static const String mainNav = '/main-nav';
   static const String splash = '/';
   static const String onboarding = '/onboarding';
   static const String signIn = '/signIn';
@@ -11,4 +12,7 @@ class AppRoutes {
   static const String sharing = '/sharing';
   static const String interest = '/interest';
   static const String home = '/home';
+  static const String search = '/search';
+  static const String downloads = '/downloads';
+  static const String profile = '/profile';
 }

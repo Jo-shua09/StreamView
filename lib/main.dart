@@ -8,7 +8,11 @@ import 'package:streamview/features/auth/view/forgot_password.dart';
 import 'package:streamview/features/auth/view/profile_pin.dart';
 import 'package:streamview/features/auth/view/sign_in.dart';
 import 'package:streamview/features/auth/view/sign_up.dart';
+import 'package:streamview/features/downloads/view/download_screen.dart';
+import 'package:streamview/features/navigation/main_navigation.dart';
 import 'package:streamview/features/profile/view/create_profile.dart';
+import 'package:streamview/features/profile/view/profile_screen.dart';
+import 'package:streamview/features/search/view/search_screen.dart';
 import 'core/routes/app_pages.dart';
 import 'core/themes/app_theme.dart';
 import 'core/widgets/splash_screen.dart';
@@ -30,6 +34,11 @@ class StreamViewApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       initialRoute: AppRoutes.splash,
       getPages: [
+        GetPage(
+          name: AppRoutes.mainNav,
+          page: () => const MainNavigation(),
+          transition: Transition.fadeIn,
+        ),
         GetPage(name: AppRoutes.splash, page: () => const SplashScreen()),
         GetPage(
           name: AppRoutes.onboarding,
@@ -56,6 +65,9 @@ class StreamViewApp extends StatelessWidget {
         GetPage(name: AppRoutes.sharing, page: () => const FamilySharing()),
         GetPage(name: AppRoutes.interest, page: () => const InterestScreen()),
         GetPage(name: AppRoutes.home, page: () => const HomeScreen()),
+        GetPage(name: AppRoutes.search, page: () => const SearchScreen()),
+        GetPage(name: AppRoutes.downloads, page: () => const DownloadScreen()),
+        GetPage(name: AppRoutes.profile, page: () => const ProfileScreen()),
       ],
     );
   }

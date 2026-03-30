@@ -147,7 +147,7 @@ class _InterestScreenState extends State<InterestScreen> {
 
               const Spacer(),
               ElevatedButton(
-                onPressed: () => Get.offAllNamed(AppRoutes.home),
+                onPressed: () => Get.offAllNamed(AppRoutes.mainNav),
                 child: Text('Continue'),
               ),
             ],

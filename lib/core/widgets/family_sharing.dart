@@ -69,7 +69,7 @@ class FamilySharing extends StatelessWidget {
                   const SizedBox(height: 16),
                   Center(
                     child: TextButton(
-                      onPressed: () => Get.offAllNamed(AppRoutes.home),
+                      onPressed: () => Get.offAllNamed(AppRoutes.mainNav),
                       child: Text(
                         'Skip for Now',
                         style: AppTextStyles.bodyMediumBold.copyWith(

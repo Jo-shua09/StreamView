@@ -46,7 +46,7 @@ class SignIn extends StatelessWidget {
             ),
             const SizedBox(height: 30),
             ElevatedButton(
-              onPressed: () => Get.offAllNamed(AppRoutes.home),
+              onPressed: () => Get.offAllNamed(AppRoutes.mainNav),
               child: Text('Continue'),
             ),
             const SizedBox(height: 10),
