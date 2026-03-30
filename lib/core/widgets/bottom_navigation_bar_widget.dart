@@ -20,7 +20,7 @@ class BottomNavigationBarWidget extends StatelessWidget {
       backgroundColor: AppColors.white,
       type: BottomNavigationBarType.fixed,
       selectedItemColor: AppColors.primary,
-      unselectedItemColor: AppColors.gray60,
+      unselectedItemColor: AppColors.gray90,
       showSelectedLabels: false,
       showUnselectedLabels: false,
       items: [
