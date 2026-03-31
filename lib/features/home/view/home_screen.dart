@@ -1,24 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:streamview/core/themes/app_colors.dart';
 import 'package:streamview/core/themes/app_text_styles.dart';
-import 'package:streamview/core/widgets/bottom_navigation_bar_widget.dart';
 import 'package:streamview/core/widgets/custom_icon.dart';
+import 'package:streamview/features/home/controllers/home_controller.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends GetView<HomeController> {
   const HomeScreen({super.key});
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  int currentStep = 1;
-
-  void nextStep() {
-    if (currentStep < 3) {
-      setState(() => currentStep++);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _topBarWidget(),
+              _topBarWidget(this.controller),
               const SizedBox(height: 20),
               Expanded(
                 child: SingleChildScrollView(
@@ -39,140 +27,18 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: Stack(
-                          children: [
-                            SizedBox(
-                              width: double.infinity,
-                              height: 160,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: AppColors.gray20,
-                                  image: DecorationImage(
-                                    image: AssetImage(
-                                      'assets/images/onboarding_one.jpg',
-                                    ),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Positioned.fill(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.topRight,
-                                    stops: const [0.35, 1],
-                                    colors: [
-                                      AppColors.primary.withOpacity(0.8),
-                                      Colors.transparent,
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 16,
-                                vertical: 10,
-                              ),
-                              child: SizedBox(
-                                height: 120,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Name',
-                                      style: AppTextStyles.bodyMediumBold
-                                          .copyWith(color: AppColors.white),
-                                    ),
-                                    Text(
-                                      'Description',
-                                      style: AppTextStyles.bodySmallSemi
-                                          .copyWith(color: AppColors.gray20),
-                                    ),
-                                    const SizedBox(height: 6),
-                                    ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: AppColors.white,
-                                        minimumSize: Size.zero,
-                                        elevation: 0,
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 16,
-                                          vertical: 16,
-                                        ),
-                                      ),
-                                      onPressed: () {},
-                                      child: Text(
-                                        'Watch Now',
-                                        style: AppTextStyles.bodySmallSemi
-                                            .copyWith(color: AppColors.primary),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      if (currentStep < 3) _buildStepIndicator(),
-
-                      //! Recommended Movies Section
+                      _heroMovieCard(this.controller),
                       const SizedBox(height: 16),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Top Searched',
-                            style: AppTextStyles.bodyMediumBold.copyWith(
-                              color: AppColors.black,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          TextButton(
-                            onPressed: () {},
-                            child: Text(
-                              'See All',
-                              style: AppTextStyles.bodySmallSemi.copyWith(
-                                color: AppColors.primary,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                      _topSearchedSection(this.controller),
                       const SizedBox(height: 10),
-                      SizedBox(height: 220, child: _movieListWidget()),
-
-                      //! Top Searched Movies Section
+                      SizedBox(
+                        height: 220,
+                        child: _movieListWidget(this.controller),
+                      ),
                       const SizedBox(height: 16),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Top Searches',
-                            style: AppTextStyles.bodyMediumBold.copyWith(
-                              color: AppColors.black,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          TextButton(
-                            onPressed: () {},
-                            child: Text(
-                              'See All',
-                              style: AppTextStyles.bodySmallSemi.copyWith(
-                                color: AppColors.primary,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                      _topSearchesSection(this.controller),
                       const SizedBox(height: 10),
-                      _topSearchWidget(),
+                      _topSearchWidget(this.controller),
                     ],
                   ),
                 ),
@@ -184,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _topBarWidget() {
+  Widget _topBarWidget(HomeController controller) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -219,140 +85,281 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
         const Spacer(),
-        CustomIcon(iconName: 'search'),
+        GestureDetector(
+          onTap: () => controller.searchMovies('action'),
+          child: CustomIcon(iconName: 'search'),
+        ),
         const SizedBox(width: 10),
         CustomIcon(iconName: 'notification-dot'),
       ],
     );
   }
 
-  Widget _buildStepIndicator() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: List.generate(3, (index) {
-        bool isSelected = (index + 1) == currentStep;
-        return AnimatedContainer(
-          duration: const Duration(milliseconds: 300),
-          margin: const EdgeInsets.symmetric(horizontal: 4),
-          height: 6,
-          width: isSelected ? 24 : 6,
-          decoration: BoxDecoration(
-            color: isSelected ? AppColors.primary : AppColors.gray20,
-            borderRadius: BorderRadius.circular(10),
+  Widget _heroMovieCard(HomeController controller) {
+    return Obx(() {
+      if (controller.topSearchedMovies.isEmpty) {
+        return ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: Container(
+            width: double.infinity,
+            height: 160,
+            color: AppColors.gray20,
           ),
         );
-      }),
-    );
-  }
-
-  Widget _movieListWidget() {
-    return ListView.builder(
-      scrollDirection: Axis.horizontal,
-      itemCount: 10,
-      itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.only(right: 16),
-          child: SizedBox(
-            width: 120,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  height: 160,
-                  decoration: BoxDecoration(
-                    color: AppColors.gray20,
-                    borderRadius: BorderRadius.circular(12),
-                    image: const DecorationImage(
-                      image: AssetImage('assets/images/sharing.jpg'),
+      }
+      final movie = controller.topSearchedMovies[0];
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: Stack(
+          children: [
+            SizedBox(
+              width: double.infinity,
+              height: 160,
+              child:
+                  movie.poster != null &&
+                      movie.poster!.isNotEmpty &&
+                      movie.poster != 'N/A'
+                  ? Image.network(
+                      movie.poster!,
                       fit: BoxFit.cover,
-                    ),
+                      errorBuilder: (context, error, stackTrace) =>
+                          Container(color: AppColors.gray20),
+                    )
+                  : Container(color: AppColors.gray20),
+            ),
+            Positioned.fill(
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.topRight,
+                    stops: const [0.35, 1],
+                    colors: [
+                      AppColors.primary.withOpacity(0.8),
+                      Colors.transparent,
+                    ],
                   ),
                 ),
-                const SizedBox(height: 8),
-                Text(
-                  'Movie Title',
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                  style: AppTextStyles.bodyMediumBold.copyWith(
-                    color: AppColors.black,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 2),
-                Row(
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              child: SizedBox(
+                height: 120,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    //Maximum of 2 genres
                     Text(
-                      'Genre, Genre',
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
+                      movie.title,
+                      style: AppTextStyles.bodyMediumBold.copyWith(
+                        color: AppColors.white,
+                      ),
+                    ),
+                    Text(
+                      movie.year,
                       style: AppTextStyles.bodySmallSemi.copyWith(
-                        color: AppColors.gray70,
+                        color: AppColors.gray20,
+                      ),
+                    ),
+                    const SizedBox(height: 6),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.white,
+                        minimumSize: Size.zero,
+                        elevation: 0,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 16,
+                        ),
+                      ),
+                      onPressed: () {},
+                      child: Text(
+                        'Watch Now',
+                        style: AppTextStyles.bodySmallSemi.copyWith(
+                          color: AppColors.primary,
+                        ),
                       ),
                     ),
                   ],
                 ),
-              ],
+              ),
+            ),
+          ],
+        ),
+      );
+    });
+  }
+
+  Widget _topSearchedSection(HomeController controller) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          'Top Searched',
+          style: AppTextStyles.bodyMediumBold.copyWith(
+            color: AppColors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        TextButton(
+          onPressed: () {},
+          child: Text(
+            'See All',
+            style: AppTextStyles.bodySmallSemi.copyWith(
+              color: AppColors.primary,
             ),
           ),
-        );
-      },
+        ),
+      ],
     );
   }
 
-  Widget _topSearchWidget() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: List.generate(5, (index) {
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 16),
-          child: Row(
-            children: [
-              Container(
-                height: 80,
-                width: 120,
-                decoration: BoxDecoration(
-                  color: AppColors.gray20,
-                  borderRadius: BorderRadius.circular(12),
-                  image: const DecorationImage(
-                    image: AssetImage('assets/images/sharing.jpg'),
-                    fit: BoxFit.cover,
+  Widget _movieListWidget(HomeController controller) {
+    return Obx(
+      () => ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: controller.topSearchedMovies.length,
+        itemBuilder: (context, index) {
+          final movie = controller.topSearchedMovies[index];
+          return Padding(
+            padding: const EdgeInsets.only(right: 16),
+            child: SizedBox(
+              width: 120,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    height: 160,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      image:
+                          movie.poster != null &&
+                              movie.poster!.isNotEmpty &&
+                              movie.poster != 'N/A'
+                          ? DecorationImage(
+                              image: NetworkImage(movie.poster!),
+                              fit: BoxFit.cover,
+                              onError: (exception, stackTrace) => null,
+                            )
+                          : null,
+                      color: AppColors.gray20,
+                    ),
                   ),
-                ),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Movie Title',
+                  const SizedBox(height: 8),
+                  Expanded(
+                    child: Text(
+                      movie.title,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
                       style: AppTextStyles.bodyMediumBold.copyWith(
                         color: AppColors.black,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(height: 4),
-                    Text(
-                      'Genre, Genre',
-                      style: AppTextStyles.bodySmallSemi.copyWith(
-                        color: AppColors.gray70,
+                  ),
+                  Text(
+                    movie.year,
+                    style: AppTextStyles.bodySmallSemi.copyWith(
+                      color: AppColors.gray70,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _topSearchesSection(HomeController controller) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          'Top Searches',
+          style: AppTextStyles.bodyMediumBold.copyWith(
+            color: AppColors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        TextButton(
+          onPressed: () {},
+          child: Text(
+            'See All',
+            style: AppTextStyles.bodySmallSemi.copyWith(
+              color: AppColors.primary,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _topSearchWidget(HomeController controller) {
+    return Obx(
+      () => Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: controller.topSearchMovies
+            .take(5)
+            .map(
+              (movie) => Padding(
+                padding: const EdgeInsets.only(bottom: 16),
+                child: Row(
+                  children: [
+                    Container(
+                      height: 80,
+                      width: 120,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        image:
+                            movie.poster != null &&
+                                movie.poster!.isNotEmpty &&
+                                movie.poster != 'N/A'
+                            ? DecorationImage(
+                                image: NetworkImage(movie.poster!),
+                                fit: BoxFit.cover,
+                              )
+                            : null,
+                        color: AppColors.gray20,
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            movie.title,
+                            style: AppTextStyles.bodyMediumBold.copyWith(
+                              color: AppColors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            movie.year,
+                            style: AppTextStyles.bodySmallSemi.copyWith(
+                              color: AppColors.gray70,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.play_circle_outline_outlined,
+                        color: AppColors.black,
                       ),
                     ),
                   ],
                 ),
               ),
-              IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.play_circle_outline_outlined,
-                  color: AppColors.black,
-                ),
-              ),
-            ],
-          ),
-        );
-      }),
+            )
+            .toList(),
+      ),
     );
   }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
+import 'core/bindings/home_binding.dart';
 import 'package:streamview/core/widgets/family_sharing.dart';
 import 'package:streamview/core/widgets/interest_screen.dart';
 import 'package:streamview/features/auth/view/otp.dart';
@@ -19,7 +21,10 @@ import 'core/widgets/splash_screen.dart';
 import 'features/onboarding/onboarding_screen.dart';
 import 'features/home/view/home_screen.dart';
 
-void main() {
+@pragma('vm:entry-point')
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load();
   runApp(const StreamViewApp());
 }
 
@@ -34,7 +39,11 @@ class StreamViewApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       initialRoute: AppRoutes.splash,
       getPages: [
-        GetPage(name: AppRoutes.mainNav, page: () => const MainNavigation()),
+        GetPage(
+          name: AppRoutes.mainNav,
+          page: () => const MainNavigation(),
+          binding: HomeBinding(),
+        ),
         GetPage(name: AppRoutes.splash, page: () => const SplashScreen()),
         GetPage(
           name: AppRoutes.onboarding,
@@ -81,7 +90,6 @@ class StreamViewApp extends StatelessWidget {
         GetPage(name: AppRoutes.interest, page: () => const InterestScreen()),
 
         //!! App Core Routes
-        GetPage(name: AppRoutes.home, page: () => const HomeScreen()),
         GetPage(name: AppRoutes.search, page: () => const SearchScreen()),
         GetPage(name: AppRoutes.downloads, page: () => const DownloadScreen()),
         GetPage(name: AppRoutes.profile, page: () => const ProfileScreen()),
