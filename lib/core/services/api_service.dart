@@ -8,10 +8,10 @@ class ApiService {
 
   // General search that returns a list of movies
   Future<List<dynamic>> searchMovies(String query, {int page = 1}) async {
-    final uri = _buildUri({'s': query, 'page': page.toString()});
-
     try {
+      final uri = _buildUri({'s': query, 'page': page.toString()});
       final response = await http.get(uri);
+      if (response.body.isEmpty) return [];
       final data = json.decode(response.body);
 
       if (response.statusCode == 200) {
@@ -38,13 +38,12 @@ class ApiService {
     String title, {
     String? year,
   }) async {
-    final params = {'t': title};
-    if (year != null) {
-      params['y'] = year;
-    }
-    final uri = _buildUri(params);
-
     try {
+      final params = {'t': title};
+      if (year != null) {
+        params['y'] = year;
+      }
+      final uri = _buildUri(params);
       final response = await http.get(uri);
       final data = json.decode(response.body);
 
@@ -66,9 +65,8 @@ class ApiService {
 
   // Fetches detailed information for a single movie by its IMDb ID
   Future<Map<String, dynamic>> getMovieById(String imdbId) async {
-    final uri = _buildUri({'i': imdbId});
-
     try {
+      final uri = _buildUri({'i': imdbId});
       final response = await http.get(uri);
       final data = json.decode(response.body);
 

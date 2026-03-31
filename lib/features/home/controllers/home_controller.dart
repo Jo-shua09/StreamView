@@ -9,6 +9,7 @@ class HomeController extends GetxController {
   final RxList<Movie> topSearchMovies = <Movie>[].obs;
   final RxBool isLoading = false.obs;
   final RxString searchQuery = ''.obs;
+  final RxInt heroCarouselIndex = 0.obs;
 
   @override
   void onInit() {
@@ -50,5 +51,9 @@ class HomeController extends GetxController {
     } finally {
       isLoading.value = false;
     }
+  }
+
+  void updateHeroCarouselIndex(int index) {
+    heroCarouselIndex.value = index;
   }
 }

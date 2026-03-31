@@ -97,7 +97,8 @@ class HomeScreen extends GetView<HomeController> {
 
   Widget _heroMovieCard(HomeController controller) {
     return Obx(() {
-      if (controller.topSearchedMovies.isEmpty) {
+      final movies = controller.topSearchedMovies.take(3).toList();
+      if (movies.isEmpty) {
         return ClipRRect(
           borderRadius: BorderRadius.circular(20),
           child: Container(
@@ -107,86 +108,129 @@ class HomeScreen extends GetView<HomeController> {
           ),
         );
       }
-      final movie = controller.topSearchedMovies[0];
-      return ClipRRect(
-        borderRadius: BorderRadius.circular(20),
-        child: Stack(
-          children: [
-            SizedBox(
-              width: double.infinity,
-              height: 160,
-              child:
-                  movie.poster != null &&
-                      movie.poster!.isNotEmpty &&
-                      movie.poster != 'N/A'
-                  ? Image.network(
-                      movie.poster!,
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) =>
-                          Container(color: AppColors.gray20),
-                    )
-                  : Container(color: AppColors.gray20),
-            ),
-            Positioned.fill(
-              child: Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.topRight,
-                    stops: const [0.35, 1],
-                    colors: [
-                      AppColors.primary.withOpacity(0.8),
-                      Colors.transparent,
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-              child: SizedBox(
-                height: 120,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      movie.title,
-                      style: AppTextStyles.bodyMediumBold.copyWith(
-                        color: AppColors.white,
+      return Column(
+        children: [
+          SizedBox(
+            height: 160,
+            child: PageView.builder(
+              onPageChanged: controller.updateHeroCarouselIndex,
+              itemCount: movies.length,
+              itemBuilder: (context, index) {
+                final movie = movies[index];
+                return ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Stack(
+                    children: [
+                      SizedBox(
+                        width: double.infinity,
+                        height: 160,
+                        child:
+                            movie.poster != null &&
+                                movie.poster!.isNotEmpty &&
+                                movie.poster != 'N/A'
+                            ? Image.network(
+                                movie.poster!,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) =>
+                                    Container(color: AppColors.gray20),
+                              )
+                            : Container(color: AppColors.gray20),
                       ),
-                    ),
-                    Text(
-                      movie.year,
-                      style: AppTextStyles.bodySmallSemi.copyWith(
-                        color: AppColors.gray20,
+                      Positioned.fill(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.topRight,
+                              stops: const [0.35, 1],
+                              colors: [
+                                AppColors.primary.withOpacity(0.8),
+                                Colors.transparent,
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 6),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.white,
-                        minimumSize: Size.zero,
-                        elevation: 0,
+                      Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 16,
-                          vertical: 16,
+                          vertical: 10,
+                        ),
+                        child: SizedBox(
+                          height: 140,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                movie.title,
+                                style: AppTextStyles.bodyMediumBold.copyWith(
+                                  color: AppColors.white,
+                                ),
+                              ),
+                              Text(
+                                movie.year,
+                                style: AppTextStyles.bodySmallSemi.copyWith(
+                                  color: AppColors.gray20,
+                                ),
+                              ),
+                              const SizedBox(height: 6),
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: AppColors.white,
+                                  minimumSize: Size.zero,
+                                  elevation: 0,
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 16,
+                                    vertical: 12,
+                                  ),
+                                ),
+                                onPressed: () {},
+                                child: Text(
+                                  'Watch Now',
+                                  style: AppTextStyles.bodySmallSemi.copyWith(
+                                    color: AppColors.primary,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                      onPressed: () {},
-                      child: Text(
-                        'Watch Now',
-                        style: AppTextStyles.bodySmallSemi.copyWith(
-                          color: AppColors.primary,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+                    ],
+                  ),
+                );
+              },
             ),
-          ],
-        ),
+          ),
+          const SizedBox(height: 16),
+          _buildStepIndicator(controller),
+        ],
+      );
+    });
+  }
+
+  Widget _buildStepIndicator(HomeController controller) {
+    return Obx(() {
+      final moviesCount = controller.topSearchedMovies.take(3).length;
+      if (moviesCount <= 1) {
+        return const SizedBox.shrink();
+      }
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: List.generate(moviesCount, (index) {
+          bool isSelected = index == controller.heroCarouselIndex.value;
+          return AnimatedContainer(
+            duration: const Duration(milliseconds: 300),
+            margin: const EdgeInsets.symmetric(horizontal: 4),
+            height: 6,
+            width: isSelected ? 24 : 6,
+            decoration: BoxDecoration(
+              color: isSelected ? AppColors.primary : AppColors.gray20,
+              borderRadius: BorderRadius.circular(10),
+            ),
+          );
+        }),
       );
     });
   }
@@ -196,7 +240,7 @@ class HomeScreen extends GetView<HomeController> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          'Top Searched',
+          'Recommended for you',
           style: AppTextStyles.bodyMediumBold.copyWith(
             color: AppColors.black,
             fontWeight: FontWeight.bold,
@@ -222,6 +266,18 @@ class HomeScreen extends GetView<HomeController> {
         itemCount: controller.topSearchedMovies.length,
         itemBuilder: (context, index) {
           final movie = controller.topSearchedMovies[index];
+          if (movie?.poster == null ||
+              movie.poster!.isEmpty ||
+              movie.poster == 'N/A') {
+            return ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Container(
+                width: double.infinity,
+                height: 160,
+                color: AppColors.gray20,
+              ),
+            );
+          }
           return Padding(
             padding: const EdgeInsets.only(right: 16),
             child: SizedBox(
@@ -248,20 +304,25 @@ class HomeScreen extends GetView<HomeController> {
                   ),
                   const SizedBox(height: 8),
                   Expanded(
-                    child: Text(
-                      movie.title,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                      style: AppTextStyles.bodyMediumBold.copyWith(
-                        color: AppColors.black,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  Text(
-                    movie.year,
-                    style: AppTextStyles.bodySmallSemi.copyWith(
-                      color: AppColors.gray70,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          movie.title,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          style: AppTextStyles.bodyMediumBold.copyWith(
+                            color: AppColors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          movie.year,
+                          style: AppTextStyles.bodySmallSemi.copyWith(
+                            color: AppColors.gray70,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
@@ -325,7 +386,7 @@ class HomeScreen extends GetView<HomeController> {
                         color: AppColors.gray20,
                       ),
                     ),
-                    const SizedBox(width: 16),
+                    const SizedBox(width: 12),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
