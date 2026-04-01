@@ -16,7 +16,20 @@ class ApiService {
 
       if (response.statusCode == 200) {
         if (data['Response'] == 'True') {
-          return data['Search'];
+          final List<dynamic> searchResults = data['Search'];
+
+          // Fetch detailed info concurrently for all search results
+          final detailedResults = await Future.wait(
+            searchResults.map((result) async {
+              try {
+                return await getMovieById(result['imdbID']);
+              } catch (_) {
+                return result; // Fallback to basic info if details fetch fails
+              }
+            }),
+          );
+
+          return detailedResults;
         } else {
           if (data['Error'] == 'Movie not found!') {
             return []; // Return empty list if no movie is found
