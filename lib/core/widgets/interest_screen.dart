@@ -4,6 +4,7 @@ import 'package:streamview/core/routes/app_pages.dart';
 import 'package:streamview/core/themes/app_colors.dart';
 import 'package:streamview/core/themes/app_text_styles.dart';
 import 'package:streamview/core/data/interest.dart' as data;
+import 'package:streamview/core/widgets/search_text_field_widget.dart';
 
 class InterestScreen extends StatefulWidget {
   const InterestScreen({super.key});
@@ -56,38 +57,7 @@ class _InterestScreenState extends State<InterestScreen> {
                 ),
               ),
               const SizedBox(height: 20),
-              TextField(
-                decoration: InputDecoration(
-                  hintText: 'Search',
-                  prefixIcon: const Icon(
-                    Icons.search_outlined,
-                    size: 20,
-                    color: AppColors.gray70,
-                  ),
-                  hintStyle: TextStyle(fontSize: 14, color: AppColors.gray70),
-                  suffixIcon: const Icon(
-                    Icons.filter_list,
-                    size: 20,
-                    color: AppColors.gray70,
-                  ),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: AppColors.black, width: 2),
-                    borderRadius: BorderRadius.all(Radius.circular(50)),
-                  ),
-                  errorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: AppColors.error, width: 2),
-                    borderRadius: BorderRadius.all(Radius.circular(50)),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: AppColors.primary, width: 2),
-                    borderRadius: BorderRadius.all(Radius.circular(50)),
-                  ),
-                  focusedErrorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: AppColors.error, width: 2),
-                    borderRadius: BorderRadius.all(Radius.circular(50)),
-                  ),
-                ),
-              ),
+              SearchTextFieldWidget(),
               const SizedBox(height: 20),
               Expanded(
                 child: SingleChildScrollView(

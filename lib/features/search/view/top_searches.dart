@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:streamview/core/themes/app_colors.dart';
 import 'package:streamview/core/themes/app_text_styles.dart';
+import 'package:streamview/core/widgets/search_text_field_widget.dart';
+import 'package:streamview/core/widgets/top_search_widget.dart';
+import 'package:streamview/features/home/controllers/home_controller.dart';
 
-class TopSearches extends StatelessWidget {
+class TopSearches extends GetView<HomeController> {
   const TopSearches({super.key});
 
   @override
@@ -24,10 +27,27 @@ class TopSearches extends StatelessWidget {
         elevation: 0,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [],
+          children: [
+            const SizedBox(height: 20),
+            const SearchTextFieldWidget(),
+            const SizedBox(height: 20),
+            Text(
+              'Top Searches',
+              style: AppTextStyles.bodyMediumBold.copyWith(
+                color: AppColors.black,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 10),
+            Expanded(
+              child: SingleChildScrollView(
+                child: TopSearchWidget(controller: controller, itemCount: 10),
+              ),
+            ),
+          ],
         ),
       ),
     );

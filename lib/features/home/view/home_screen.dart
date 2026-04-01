@@ -4,8 +4,8 @@ import 'package:streamview/core/routes/app_pages.dart';
 import 'package:streamview/core/themes/app_colors.dart';
 import 'package:streamview/core/themes/app_text_styles.dart';
 import 'package:streamview/core/widgets/custom_icon.dart';
-import 'package:streamview/core/widgets/horizontal_movie_card.dart';
-import 'package:streamview/core/widgets/vertical_movie_card.dart';
+import 'package:streamview/core/widgets/movie_list_widget.dart';
+import 'package:streamview/core/widgets/top_search_widget.dart';
 import 'package:streamview/features/home/controllers/home_controller.dart';
 
 class HomeScreen extends GetView<HomeController> {
@@ -36,12 +36,12 @@ class HomeScreen extends GetView<HomeController> {
                       const SizedBox(height: 10),
                       SizedBox(
                         height: 220,
-                        child: _movieListWidget(this.controller),
+                        child: MovieListWidget(controller: this.controller),
                       ),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 10),
                       _topSearchesSection(this.controller),
                       const SizedBox(height: 10),
-                      _topSearchWidget(this.controller),
+                      TopSearchWidget(controller: this.controller),
                     ],
                   ),
                 ),
@@ -262,41 +262,6 @@ class HomeScreen extends GetView<HomeController> {
     );
   }
 
-  Widget _movieListWidget(HomeController controller) {
-    return Obx(() {
-      if (controller.topSearchedMovies.isEmpty) {
-        return ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: 4, // Show 4 empty placeholders
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.only(right: 16),
-              child: Container(
-                width: 120,
-                height: 160,
-                decoration: BoxDecoration(
-                  color: AppColors.gray20,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-            );
-          },
-        );
-      }
-      return ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: controller.topSearchedMovies.length,
-        itemBuilder: (context, index) {
-          final movie = controller.topSearchedMovies[index];
-          return Padding(
-            padding: const EdgeInsets.only(right: 16),
-            child: HorizontalMovieCard(movie: movie),
-          );
-        },
-      );
-    });
-  }
-
   Widget _topSearchesSection(HomeController controller) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -319,77 +284,5 @@ class HomeScreen extends GetView<HomeController> {
         ),
       ],
     );
-  }
-
-  Widget _topSearchWidget(HomeController controller) {
-    return Obx(() {
-      if (controller.topSearchMovies.isEmpty) {
-        return Column(
-          children: List.generate(
-            5,
-            (index) => Padding(
-              padding: const EdgeInsets.only(bottom: 16),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    height: 80,
-                    width: 120,
-                    decoration: BoxDecoration(
-                      color: AppColors.gray20,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(height: 10),
-                        Container(
-                          height: 14,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: AppColors.gray20,
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        Container(
-                          height: 12,
-                          width: 80,
-                          decoration: BoxDecoration(
-                            color: AppColors.gray20,
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-      }
-      return Column(
-        children: controller.topSearchMovies
-            .take(5)
-            .map(
-              (movie) => Padding(
-                padding: const EdgeInsets.only(bottom: 16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    VerticalMovieCard(movie: movie),
-                    const SizedBox(width: 12),
-                  ],
-                ),
-              ),
-            )
-            .toList(),
-      );
-    });
   }
 }
