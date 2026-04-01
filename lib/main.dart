@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
+import 'package:streamview/features/explore/view/search_screen.dart';
 import 'package:streamview/features/explore/view/top_searches.dart';
 import 'core/bindings/home_binding.dart';
 import 'package:streamview/core/widgets/family_sharing.dart';
@@ -89,6 +90,7 @@ class StreamViewApp extends StatelessWidget {
         GetPage(name: AppRoutes.sharing, page: () => const FamilySharing()),
         GetPage(name: AppRoutes.interest, page: () => const InterestScreen()),
         GetPage(name: AppRoutes.topSearches, page: () => const TopSearches()),
+        GetPage(name: AppRoutes.search, page: () => const SearchScreen()),
 
         //!! App Core Routes
         GetPage(name: AppRoutes.explore, page: () => const ExploreScreen()),

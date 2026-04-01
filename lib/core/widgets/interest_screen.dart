@@ -57,7 +57,7 @@ class _InterestScreenState extends State<InterestScreen> {
                 ),
               ),
               const SizedBox(height: 20),
-              SearchTextFieldWidget(),
+              const SearchTextFieldWidget(onTap: null),
               const SizedBox(height: 20),
               Expanded(
                 child: SingleChildScrollView(

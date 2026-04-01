@@ -12,6 +12,7 @@ class AppRoutes {
   static const String sharing = '/sharing';
   static const String interest = '/interest';
   static const String topSearches = '/top-searches';
+  static const String search = '/search';
   static const String home = '/home';
   static const String explore = '/explore';
   static const String downloads = '/downloads';

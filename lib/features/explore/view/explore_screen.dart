@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:streamview/core/routes/app_pages.dart';
 import 'package:streamview/core/themes/app_colors.dart';
 import 'package:streamview/core/themes/app_text_styles.dart';
 import 'package:streamview/core/widgets/movie_list_widget.dart';
@@ -30,7 +31,7 @@ class ExploreScreen extends GetView<HomeController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SearchTextFieldWidget(),
+            SearchTextFieldWidget(onTap: () => Get.toNamed(AppRoutes.search)),
             const SizedBox(height: 30),
             Expanded(
               child: SingleChildScrollView(
