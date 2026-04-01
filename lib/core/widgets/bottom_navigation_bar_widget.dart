@@ -30,7 +30,7 @@ class BottomNavigationBarWidget extends StatelessWidget {
         ),
         BottomNavigationBarItem(
           icon: _buildIcon(FontAwesomeIcons.magnifyingGlass, currentIndex == 1),
-          label: 'Search',
+          label: 'Explore',
         ),
         BottomNavigationBarItem(
           icon: _buildIcon(FontAwesomeIcons.download, currentIndex == 2),

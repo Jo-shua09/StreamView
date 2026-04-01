@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:streamview/features/home/view/home_screen.dart';
-import 'package:streamview/features/search/view/search_screen.dart';
+import 'package:streamview/features/explore/view/explore_screen.dart';
 import 'package:streamview/features/downloads/view/download_screen.dart';
 import 'package:streamview/features/profile/view/profile_screen.dart';
 import 'package:streamview/core/widgets/bottom_navigation_bar_widget.dart';
@@ -17,7 +17,7 @@ class _MainNavigationState extends State<MainNavigation> {
 
   final List<Widget> _pages = [
     const HomeScreen(),
-    const SearchScreen(),
+    const ExploreScreen(),
     const DownloadScreen(),
     const ProfileScreen(),
   ];

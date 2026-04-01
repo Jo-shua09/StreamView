@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
-import 'package:streamview/features/search/view/top_searches.dart';
+import 'package:streamview/features/explore/view/top_searches.dart';
 import 'core/bindings/home_binding.dart';
 import 'package:streamview/core/widgets/family_sharing.dart';
 import 'package:streamview/core/widgets/interest_screen.dart';
@@ -15,7 +15,7 @@ import 'package:streamview/features/downloads/view/download_screen.dart';
 import 'package:streamview/features/navigation/main_navigation.dart';
 import 'package:streamview/features/profile/view/create_profile.dart';
 import 'package:streamview/features/profile/view/profile_screen.dart';
-import 'package:streamview/features/search/view/search_screen.dart';
+import 'package:streamview/features/explore/view/explore_screen.dart';
 import 'core/routes/app_pages.dart';
 import 'core/themes/app_theme.dart';
 import 'core/widgets/splash_screen.dart';
@@ -91,7 +91,7 @@ class StreamViewApp extends StatelessWidget {
         GetPage(name: AppRoutes.topSearches, page: () => const TopSearches()),
 
         //!! App Core Routes
-        GetPage(name: AppRoutes.search, page: () => const SearchScreen()),
+        GetPage(name: AppRoutes.explore, page: () => const ExploreScreen()),
         GetPage(name: AppRoutes.downloads, page: () => const DownloadScreen()),
         GetPage(name: AppRoutes.profile, page: () => const ProfileScreen()),
       ],
