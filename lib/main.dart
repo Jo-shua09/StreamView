@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
+import 'package:streamview/features/search/view/top_searches.dart';
 import 'core/bindings/home_binding.dart';
 import 'package:streamview/core/widgets/family_sharing.dart';
 import 'package:streamview/core/widgets/interest_screen.dart';
@@ -19,7 +20,6 @@ import 'core/routes/app_pages.dart';
 import 'core/themes/app_theme.dart';
 import 'core/widgets/splash_screen.dart';
 import 'features/onboarding/onboarding_screen.dart';
-import 'features/home/view/home_screen.dart';
 
 @pragma('vm:entry-point')
 void main() async {
@@ -88,6 +88,7 @@ class StreamViewApp extends StatelessWidget {
         //!! App Feature Routes
         GetPage(name: AppRoutes.sharing, page: () => const FamilySharing()),
         GetPage(name: AppRoutes.interest, page: () => const InterestScreen()),
+        GetPage(name: AppRoutes.topSearches, page: () => const TopSearches()),
 
         //!! App Core Routes
         GetPage(name: AppRoutes.search, page: () => const SearchScreen()),

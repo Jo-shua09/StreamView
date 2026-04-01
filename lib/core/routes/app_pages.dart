@@ -11,6 +11,7 @@ class AppRoutes {
   static const String profilePin = '/profile-pin';
   static const String sharing = '/sharing';
   static const String interest = '/interest';
+  static const String topSearches = '/top-searches';
   static const String home = '/home';
   static const String search = '/search';
   static const String downloads = '/downloads';

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:streamview/core/routes/app_pages.dart';
 import 'package:streamview/core/themes/app_colors.dart';
 import 'package:streamview/core/themes/app_text_styles.dart';
 import 'package:streamview/core/widgets/custom_icon.dart';
+import 'package:streamview/core/widgets/horizontal_movie_card.dart';
+import 'package:streamview/core/widgets/vertical_movie_card.dart';
 import 'package:streamview/features/home/controllers/home_controller.dart';
 
 class HomeScreen extends GetView<HomeController> {
@@ -266,68 +269,9 @@ class HomeScreen extends GetView<HomeController> {
         itemCount: controller.topSearchedMovies.length,
         itemBuilder: (context, index) {
           final movie = controller.topSearchedMovies[index];
-          if (movie?.poster == null ||
-              movie.poster!.isEmpty ||
-              movie.poster == 'N/A') {
-            return ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Container(
-                width: double.infinity,
-                height: 160,
-                color: AppColors.gray20,
-              ),
-            );
-          }
           return Padding(
             padding: const EdgeInsets.only(right: 16),
-            child: SizedBox(
-              width: 120,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    height: 160,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      image:
-                          movie.poster != null &&
-                              movie.poster!.isNotEmpty &&
-                              movie.poster != 'N/A'
-                          ? DecorationImage(
-                              image: NetworkImage(movie.poster!),
-                              fit: BoxFit.cover,
-                              onError: (exception, stackTrace) => null,
-                            )
-                          : null,
-                      color: AppColors.gray20,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          movie.title,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                          style: AppTextStyles.bodyMediumBold.copyWith(
-                            color: AppColors.black,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          movie.year,
-                          style: AppTextStyles.bodySmallSemi.copyWith(
-                            color: AppColors.gray70,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            child: HorizontalMovieCard(movie: movie),
           );
         },
       ),
@@ -346,7 +290,7 @@ class HomeScreen extends GetView<HomeController> {
           ),
         ),
         TextButton(
-          onPressed: () {},
+          onPressed: () => Get.toNamed(AppRoutes.topSearches),
           child: Text(
             'See All',
             style: AppTextStyles.bodySmallSemi.copyWith(
@@ -361,60 +305,17 @@ class HomeScreen extends GetView<HomeController> {
   Widget _topSearchWidget(HomeController controller) {
     return Obx(
       () => Column(
-        mainAxisAlignment: MainAxisAlignment.start,
         children: controller.topSearchMovies
             .take(5)
             .map(
               (movie) => Padding(
                 padding: const EdgeInsets.only(bottom: 16),
-                child: Row(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Container(
-                      height: 80,
-                      width: 120,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        image:
-                            movie.poster != null &&
-                                movie.poster!.isNotEmpty &&
-                                movie.poster != 'N/A'
-                            ? DecorationImage(
-                                image: NetworkImage(movie.poster!),
-                                fit: BoxFit.cover,
-                              )
-                            : null,
-                        color: AppColors.gray20,
-                      ),
-                    ),
+                    VerticalMovieCard(movie: movie),
                     const SizedBox(width: 12),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            movie.title,
-                            style: AppTextStyles.bodyMediumBold.copyWith(
-                              color: AppColors.black,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            movie.year,
-                            style: AppTextStyles.bodySmallSemi.copyWith(
-                              color: AppColors.gray70,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.play_circle_outline_outlined,
-                        color: AppColors.black,
-                      ),
-                    ),
                   ],
                 ),
               ),
