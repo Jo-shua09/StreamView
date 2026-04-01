@@ -8,7 +8,9 @@ class SearchTextFieldWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      style: const TextStyle(fontSize: 14, color: AppColors.gray70),
       decoration: InputDecoration(
+        counterStyle: const TextStyle(fontSize: 16, color: AppColors.gray70),
         hintText: 'Search...',
         prefixIcon: Padding(
           padding: const EdgeInsets.fromLTRB(16, 2.5, 5, 0),

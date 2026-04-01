@@ -13,10 +13,7 @@ class ExploreScreen extends StatelessWidget {
       backgroundColor: AppColors.white,
       appBar: AppBar(
         backgroundColor: AppColors.white,
-        leading: IconButton(
-          onPressed: () => Get.back(),
-          icon: Icon(Icons.arrow_back_ios_outlined),
-        ),
+        automaticallyImplyLeading: false,
         centerTitle: true,
         title: Text(
           'Explore',
@@ -28,7 +25,11 @@ class ExploreScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const SizedBox(height: 20), const SearchTextFieldWidget()],
+          children: [
+            const SizedBox(height: 10),
+            const SearchTextFieldWidget(),
+            const SizedBox(height: 20),
+          ],
         ),
       ),
     );
