@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:streamview/core/routes/app_pages.dart';
 import 'package:streamview/core/themes/app_colors.dart';
 import 'package:streamview/core/widgets/horizontal_movie_card.dart';
 import 'package:streamview/features/home/controllers/home_controller.dart';
@@ -43,7 +44,11 @@ class MovieListWidget extends StatelessWidget {
           final movie = controller.topSearchedMovies[index];
           return Padding(
             padding: const EdgeInsets.only(right: 16),
-            child: HorizontalMovieCard(movie: movie),
+            child: GestureDetector(
+              onTap: () =>
+                  Get.toNamed(AppRoutes.movieDetails, arguments: movie),
+              child: HorizontalMovieCard(movie: movie),
+            ),
           );
         },
       );

@@ -8,6 +8,7 @@ class Movie {
   final String? genre;
   final String? director;
   final String? actors;
+  final String? imdbRating;
 
   List<String> get genreList {
     if (genre == null || genre!.isEmpty) return [];
@@ -24,6 +25,7 @@ class Movie {
     this.genre,
     this.director,
     this.actors,
+    this.imdbRating,
   });
 
   factory Movie.fromJson(Map<String, dynamic> json) {
@@ -37,6 +39,7 @@ class Movie {
       genre: json['Genre'],
       director: json['Director'],
       actors: json['Actors'],
+      imdbRating: json['imdbRating'],
     );
   }
 }

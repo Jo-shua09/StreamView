@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:streamview/core/routes/app_pages.dart';
 import 'package:streamview/core/themes/app_colors.dart';
 import 'package:streamview/core/widgets/vertical_movie_card.dart';
 import 'package:streamview/features/home/controllers/home_controller.dart';
@@ -76,7 +77,11 @@ class TopSearchWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    VerticalMovieCard(movie: movie),
+                    GestureDetector(
+                      onTap: () =>
+                          Get.toNamed(AppRoutes.movieDetails, arguments: movie),
+                      child: VerticalMovieCard(movie: movie),
+                    ),
                     const SizedBox(width: 12),
                   ],
                 ),
