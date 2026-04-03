@@ -3,14 +3,16 @@ import 'package:streamview/core/themes/app_colors.dart';
 import 'package:streamview/core/widgets/custom_icon.dart';
 
 class SearchTextFieldWidget extends StatelessWidget {
-  const SearchTextFieldWidget({super.key, required this.onTap});
+  const SearchTextFieldWidget({super.key, required this.onTap, this.onChanged});
 
   final VoidCallback? onTap;
+  final ValueChanged<String>? onChanged;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       onTap: onTap,
+      onChanged: onChanged,
       style: const TextStyle(fontSize: 14, color: AppColors.gray70),
       decoration: InputDecoration(
         counterStyle: const TextStyle(fontSize: 16, color: AppColors.gray70),
