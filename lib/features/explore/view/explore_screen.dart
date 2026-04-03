@@ -189,6 +189,7 @@ class ExploreScreen extends GetView<HomeController> {
                       height: 220,
                       child: MovieListWidget(controller: controller),
                     ),
+                    const SizedBox(height: 20),
                   ],
                 ),
               ),
