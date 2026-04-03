@@ -13,6 +13,8 @@ class HomeScreen extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
+    final PageController pageController = PageController(viewportFraction: 0.9);
+
     return Scaffold(
       backgroundColor: AppColors.white,
       body: SafeArea(
@@ -30,7 +32,7 @@ class HomeScreen extends GetView<HomeController> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _heroMovieCard(this.controller),
+                      _heroMovieCard(this.controller, pageController),
                       const SizedBox(height: 16),
                       _topSearchedSection(this.controller),
                       const SizedBox(height: 10),
@@ -98,7 +100,10 @@ class HomeScreen extends GetView<HomeController> {
     );
   }
 
-  Widget _heroMovieCard(HomeController controller) {
+  Widget _heroMovieCard(
+    HomeController controller,
+    PageController pageController,
+  ) {
     return Obx(() {
       final movies = controller.topSearchedMovies.take(3).toList();
       if (movies.isEmpty) {
@@ -116,91 +121,96 @@ class HomeScreen extends GetView<HomeController> {
           SizedBox(
             height: 160,
             child: PageView.builder(
+              controller: pageController,
+              clipBehavior: Clip.none,
               onPageChanged: controller.updateHeroCarouselIndex,
               itemCount: movies.length,
               itemBuilder: (context, index) {
                 final movie = movies[index];
-                return ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Stack(
-                    children: [
-                      SizedBox(
-                        width: double.infinity,
-                        height: 160,
-                        child:
-                            movie.poster != null &&
-                                movie.poster!.isNotEmpty &&
-                                movie.poster != 'N/A'
-                            ? Image.network(
-                                movie.poster!,
-                                fit: BoxFit.cover,
-                                errorBuilder: (context, error, stackTrace) =>
-                                    Container(color: AppColors.gray20),
-                              )
-                            : Container(color: AppColors.gray20),
-                      ),
-                      Positioned.fill(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.topRight,
-                              stops: const [0.35, 1],
-                              colors: [
-                                AppColors.primary.withOpacity(0.8),
-                                Colors.transparent,
+                return Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 4),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Stack(
+                      children: [
+                        SizedBox(
+                          width: double.infinity,
+                          height: 160,
+                          child:
+                              movie.poster != null &&
+                                  movie.poster!.isNotEmpty &&
+                                  movie.poster != 'N/A'
+                              ? Image.network(
+                                  movie.poster!,
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) =>
+                                      Container(color: AppColors.gray20),
+                                )
+                              : Container(color: AppColors.gray20),
+                        ),
+                        Positioned.fill(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.topLeft,
+                                end: Alignment.topRight,
+                                stops: const [0.35, 1],
+                                colors: [
+                                  AppColors.primary.withOpacity(0.8),
+                                  Colors.transparent,
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 10,
+                          ),
+                          child: SizedBox(
+                            height: 140,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  movie.title,
+                                  style: AppTextStyles.bodyMediumBold.copyWith(
+                                    color: AppColors.white,
+                                  ),
+                                ),
+                                Text(
+                                  movie.year,
+                                  style: AppTextStyles.bodySmallSemi.copyWith(
+                                    color: AppColors.gray20,
+                                  ),
+                                ),
+                                const SizedBox(height: 6),
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: AppColors.white,
+                                    minimumSize: Size.zero,
+                                    elevation: 0,
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 16,
+                                      vertical: 12,
+                                    ),
+                                  ),
+                                  onPressed: () {},
+                                  child: Text(
+                                    'Watch Now',
+                                    style: AppTextStyles.bodySmallSemi.copyWith(
+                                      color: AppColors.primary,
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                           ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 10,
-                        ),
-                        child: SizedBox(
-                          height: 140,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                movie.title,
-                                style: AppTextStyles.bodyMediumBold.copyWith(
-                                  color: AppColors.white,
-                                ),
-                              ),
-                              Text(
-                                movie.year,
-                                style: AppTextStyles.bodySmallSemi.copyWith(
-                                  color: AppColors.gray20,
-                                ),
-                              ),
-                              const SizedBox(height: 6),
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: AppColors.white,
-                                  minimumSize: Size.zero,
-                                  elevation: 0,
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 16,
-                                    vertical: 12,
-                                  ),
-                                ),
-                                onPressed: () {},
-                                child: Text(
-                                  'Watch Now',
-                                  style: AppTextStyles.bodySmallSemi.copyWith(
-                                    color: AppColors.primary,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 );
               },

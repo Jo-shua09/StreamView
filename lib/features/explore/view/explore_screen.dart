@@ -13,6 +13,7 @@ class ExploreScreen extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     final RxString selectedCategory = 'All'.obs;
+    final PageController pageController = PageController(viewportFraction: 0.9);
 
     return Scaffold(
       backgroundColor: AppColors.white,
@@ -54,6 +55,8 @@ class ExploreScreen extends GetView<HomeController> {
                       return SizedBox(
                         height: 160,
                         child: PageView.builder(
+                          controller: pageController,
+                          clipBehavior: Clip.none,
                           onPageChanged: controller.updateHeroCarouselIndex,
                           itemCount: movies.length,
                           itemBuilder: (context, index) {
