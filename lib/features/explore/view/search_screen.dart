@@ -54,7 +54,7 @@ class SearchScreen extends GetView<HomeController> {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        'Sorry we can\'t find this movie',
+                        'Sorry we can\'t find this movie.',
                         style: AppTextStyles.bodyMediumBold.copyWith(
                           color: AppColors.black,
                         ),
