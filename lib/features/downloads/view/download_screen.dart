@@ -142,10 +142,7 @@ class DownloadScreen extends GetView<HomeController> {
                             .map(
                               (movie) => Padding(
                                 padding: const EdgeInsets.only(bottom: 16),
-                                child: VerticalMovieCard(
-                                  movie: movie,
-                                  onPlayTap: () {},
-                                ),
+                                child: VerticalMovieCard(movie: movie),
                               ),
                             )
                             .toList(),

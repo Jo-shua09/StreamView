@@ -77,11 +77,7 @@ class TopSearchWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    GestureDetector(
-                      onTap: () =>
-                          Get.toNamed(AppRoutes.movieDetails, arguments: movie),
-                      child: VerticalMovieCard(movie: movie),
-                    ),
+                    VerticalMovieCard(movie: movie),
                     const SizedBox(width: 12),
                   ],
                 ),

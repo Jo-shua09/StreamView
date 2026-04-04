@@ -14,6 +14,7 @@ class AppRoutes {
   static const String topSearches = '/top-searches';
   static const String search = '/search';
   static const String movieDetails = '/movie-details';
+  static const String playMovie = '/play-movie';
   static const String home = '/home';
   static const String explore = '/explore';
   static const String downloads = '/downloads';

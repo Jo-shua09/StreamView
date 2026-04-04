@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:streamview/core/models/movie.dart';
+import 'package:streamview/core/routes/app_pages.dart';
 import 'package:streamview/core/themes/app_colors.dart';
 import 'package:streamview/core/themes/app_text_styles.dart';
 import 'package:streamview/core/widgets/custom_icon.dart';
@@ -146,7 +147,8 @@ class MovieDetails extends GetView<HomeController> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ElevatedButton.icon(
-                        onPressed: () {},
+                        onPressed: () =>
+                            Get.toNamed(AppRoutes.playMovie, arguments: movie),
                         icon: const Icon(Icons.play_circle_outline_rounded),
                         label: const Text('Play'),
                         style: ElevatedButton.styleFrom(
@@ -197,7 +199,7 @@ class MovieDetails extends GetView<HomeController> {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: AppColors.white.withOpacity(0.2),
+        color: AppColors.gray10,
         shape: BoxShape.circle,
       ),
       child: CustomIcon(iconName: iconName, size: 20, color: AppColors.white),

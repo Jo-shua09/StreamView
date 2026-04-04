@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:streamview/core/models/movie.dart';
+import 'package:streamview/core/routes/app_pages.dart';
 import 'package:streamview/core/themes/app_colors.dart';
 import 'package:streamview/core/themes/app_text_styles.dart';
 
 class VerticalMovieCard extends StatelessWidget {
   final Movie movie;
-  final VoidCallback? onPlayTap;
 
-  const VerticalMovieCard({super.key, required this.movie, this.onPlayTap});
+  const VerticalMovieCard({super.key, required this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -17,26 +18,30 @@ class VerticalMovieCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child: Container(
-                    height: 80,
-                    width: 120,
-                    color: AppColors.gray20,
-                    child:
-                        movie.poster != null &&
-                            movie.poster!.isNotEmpty &&
-                            movie.poster != 'N/A'
-                        ? Image.network(
-                            movie.poster!,
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) =>
-                                const Icon(
-                                  Icons.movie,
-                                  color: AppColors.gray70,
-                                ),
-                          )
-                        : const Icon(Icons.movie, color: AppColors.gray70),
+                GestureDetector(
+                  onTap: () =>
+                      Get.toNamed(AppRoutes.movieDetails, arguments: movie),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Container(
+                      height: 80,
+                      width: 120,
+                      color: AppColors.gray20,
+                      child:
+                          movie.poster != null &&
+                              movie.poster!.isNotEmpty &&
+                              movie.poster != 'N/A'
+                          ? Image.network(
+                              movie.poster!,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) =>
+                                  const Icon(
+                                    Icons.movie,
+                                    color: AppColors.gray70,
+                                  ),
+                            )
+                          : const Icon(Icons.movie, color: AppColors.gray70),
+                    ),
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -66,7 +71,8 @@ class VerticalMovieCard extends StatelessWidget {
                   ),
                 ),
                 IconButton(
-                  onPressed: onPlayTap,
+                  onPressed: () =>
+                      Get.toNamed(AppRoutes.playMovie, arguments: movie),
                   icon: const Icon(
                     Icons.play_circle_outline,
                     color: AppColors.gray80,

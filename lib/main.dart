@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:streamview/features/explore/view/search_screen.dart';
 import 'package:streamview/features/explore/view/top_searches.dart';
 import 'package:streamview/features/movies/view/movie_details.dart';
+import 'package:streamview/features/movies/view/movie_play.dart';
 import 'core/bindings/home_binding.dart';
 import 'package:streamview/core/widgets/family_sharing.dart';
 import 'package:streamview/core/widgets/interest_screen.dart';
@@ -93,6 +94,7 @@ class StreamViewApp extends StatelessWidget {
         GetPage(name: AppRoutes.topSearches, page: () => const TopSearches()),
         GetPage(name: AppRoutes.search, page: () => const SearchScreen()),
         GetPage(name: AppRoutes.movieDetails, page: () => const MovieDetails()),
+        GetPage(name: AppRoutes.playMovie, page: () => const MoviePlay()),
 
         //!! App Core Routes
         GetPage(name: AppRoutes.explore, page: () => const ExploreScreen()),
