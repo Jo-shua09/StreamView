@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:streamview/core/routes/app_pages.dart';
 import 'package:streamview/core/themes/app_colors.dart';
 import 'package:streamview/core/themes/app_text_styles.dart';
 import 'package:streamview/core/widgets/movie_list_widget.dart';
 import 'package:streamview/core/widgets/search_text_field_widget.dart';
 import 'package:streamview/features/home/controllers/home_controller.dart';
 import 'package:streamview/core/widgets/top_search_widget.dart';
+import 'package:streamview/features/explore/controllers/explore_search_controller.dart';
+import 'package:streamview/core/widgets/vertical_movie_card.dart';
 
 class SearchScreen extends GetView<HomeController> {
   const SearchScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final RxString searchQuery = ''.obs;
+    final ExploreSearchController exploreController = Get.put(
+      ExploreSearchController(),
+    );
 
     return Scaffold(
       backgroundColor: AppColors.white,
@@ -37,40 +42,68 @@ class SearchScreen extends GetView<HomeController> {
             const SizedBox(height: 20),
             SearchTextFieldWidget(
               onTap: null,
-              onChanged: (value) => searchQuery.value = value,
+              onChanged: (value) => exploreController.searchQuery.value = value,
             ),
             const SizedBox(height: 20),
             Expanded(
               child: Obx(() {
-                if (searchQuery.value.isNotEmpty) {
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/images/emoji-sad.jpg',
-                        width: 100,
-                        height: 100,
+                if (exploreController.searchQuery.value.isNotEmpty) {
+                  if (exploreController.isLoadingSearch.value) {
+                    return const Center(
+                      child: CircularProgressIndicator(
+                        color: AppColors.primary,
                       ),
-                      const SizedBox(height: 8),
-                      Text(
-                        'Sorry we can\'t find this movie.',
-                        style: AppTextStyles.bodyMediumBold.copyWith(
-                          color: AppColors.black,
-                        ),
-                      ),
-                      const SizedBox(height: 6),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Text(
-                          'Lorem ipsum dolor sit amet, consectetur adipisci elit, sed do eiusmod',
-                          textAlign: TextAlign.center,
-                          style: AppTextStyles.bodySmallSemi.copyWith(
-                            color: AppColors.gray70,
+                    );
+                  }
+                  if (exploreController.searchResults.isEmpty) {
+                    return Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            'assets/images/emoji-sad.jpg',
+                            width: 100,
+                            height: 100,
+                            errorBuilder: (context, error, stackTrace) =>
+                                const Icon(
+                                  Icons.sentiment_dissatisfied,
+                                  size: 100,
+                                  color: AppColors.gray70,
+                                ),
                           ),
-                        ),
+                          const SizedBox(height: 8),
+                          Text(
+                            'Sorry we can\'t find this movie.',
+                            style: AppTextStyles.bodyMediumBold.copyWith(
+                              color: AppColors.black,
+                            ),
+                          ),
+                          const SizedBox(height: 6),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: Text(
+                              'Try searching with different keywords.',
+                              textAlign: TextAlign.center,
+                              style: AppTextStyles.bodySmallSemi.copyWith(
+                                color: AppColors.gray70,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
+                    );
+                  }
+                  return ListView.builder(
+                    itemCount: exploreController.searchResults.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 16),
+                        child: VerticalMovieCard(
+                          movie: exploreController.searchResults[index],
+                        ),
+                      );
+                    },
                   );
                 }
                 return SingleChildScrollView(
@@ -164,7 +197,14 @@ class SearchScreen extends GetView<HomeController> {
                             ),
                           ),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () => Get.toNamed(
+                              AppRoutes.seeAll,
+                              arguments: {
+                                'title': 'Recommended for you',
+                                'movies': this.controller.topSearchedMovies
+                                    .toList(),
+                              },
+                            ),
                             child: Text(
                               'See All',
                               style: AppTextStyles.bodySmallSemi.copyWith(

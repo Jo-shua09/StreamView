@@ -4,12 +4,22 @@ import 'package:http/http.dart' as http;
 
 class ApiService {
   final String? _apiKey = dotenv.env['OMDB_API_KEY'];
-  final String? _baseUrl = dotenv.env['OMDB_BASE_URL'];
+  final String? _baseUrl =
+      dotenv.env['OMDB_BASE_URL'] ?? 'https://www.omdbapi.com/';
 
   // General search that returns a list of movies
-  Future<List<dynamic>> searchMovies(String query, {int page = 1}) async {
+  Future<List<dynamic>> searchMovies(
+    String query, {
+    int page = 1,
+    String type =
+        'movie', // Default to 'movie' to avoid TV Shows/Games with N/A directors
+  }) async {
     try {
-      final uri = _buildUri({'s': query, 'page': page.toString()});
+      final uri = _buildUri({
+        's': query,
+        'page': page.toString(),
+        'type': type,
+      });
       final response = await http.get(uri);
       if (response.body.isEmpty) return [];
       final data = json.decode(response.body);
@@ -100,8 +110,8 @@ class ApiService {
   }
 
   Uri _buildUri(Map<String, String> params) {
-    if (_apiKey == null || _baseUrl == null) {
-      throw Exception('OMDB_API_KEY or OMDB_BASE_URL not set in .env file');
+    if (_apiKey == null) {
+      throw Exception('OMDB_API_KEY not set in .env file');
     }
 
     final queryParameters = {'apikey': _apiKey!, ...params};

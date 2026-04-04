@@ -55,7 +55,13 @@ class MovieDetails extends GetView<HomeController> {
                         style: AppTextStyles.bodyMediumBold,
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () => Get.toNamed(
+                          AppRoutes.seeAll,
+                          arguments: {
+                            'title': 'Recommended for you',
+                            'movies': controller.topSearchedMovies.toList(),
+                          },
+                        ),
                         child: Text(
                           'See All',
                           style: AppTextStyles.bodySmallSemi.copyWith(

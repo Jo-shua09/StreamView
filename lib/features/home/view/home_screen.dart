@@ -91,7 +91,7 @@ class HomeScreen extends GetView<HomeController> {
         ),
         const Spacer(),
         GestureDetector(
-          onTap: () => controller.searchMovies('action'),
+          onTap: () => Get.toNamed(AppRoutes.search),
           child: CustomIcon(iconName: 'search'),
         ),
         const SizedBox(width: 10),
@@ -197,7 +197,10 @@ class HomeScreen extends GetView<HomeController> {
                                       vertical: 12,
                                     ),
                                   ),
-                                  onPressed: () {},
+                                  onPressed: () => Get.toNamed(
+                                    AppRoutes.playMovie,
+                                    arguments: movie,
+                                  ),
                                   child: Text(
                                     'Watch Now',
                                     style: AppTextStyles.bodySmallSemi.copyWith(
@@ -260,7 +263,13 @@ class HomeScreen extends GetView<HomeController> {
           ),
         ),
         TextButton(
-          onPressed: () {},
+          onPressed: () => Get.toNamed(
+            AppRoutes.seeAll,
+            arguments: {
+              'title': 'Recommended for you',
+              'movies': controller.topSearchedMovies.toList(),
+            },
+          ),
           child: Text(
             'See All',
             style: AppTextStyles.bodySmallSemi.copyWith(

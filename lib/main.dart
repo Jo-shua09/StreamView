@@ -23,6 +23,7 @@ import 'core/routes/app_pages.dart';
 import 'core/themes/app_theme.dart';
 import 'core/widgets/splash_screen.dart';
 import 'features/onboarding/onboarding_screen.dart';
+import 'package:streamview/features/movies/view/see_all_movies.dart';
 
 @pragma('vm:entry-point')
 void main() async {
@@ -95,6 +96,7 @@ class StreamViewApp extends StatelessWidget {
         GetPage(name: AppRoutes.search, page: () => const SearchScreen()),
         GetPage(name: AppRoutes.movieDetails, page: () => const MovieDetails()),
         GetPage(name: AppRoutes.playMovie, page: () => const MoviePlay()),
+        GetPage(name: AppRoutes.seeAll, page: () => const SeeAllMovies()),
 
         //!! App Core Routes
         GetPage(name: AppRoutes.explore, page: () => const ExploreScreen()),

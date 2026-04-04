@@ -6,13 +6,17 @@ import 'package:streamview/core/themes/app_text_styles.dart';
 import 'package:streamview/core/widgets/movie_list_widget.dart';
 import 'package:streamview/core/widgets/search_text_field_widget.dart';
 import 'package:streamview/features/home/controllers/home_controller.dart';
+import 'package:streamview/features/explore/controllers/explore_search_controller.dart';
+import 'package:streamview/core/widgets/horizontal_movie_card.dart';
 
 class ExploreScreen extends GetView<HomeController> {
   const ExploreScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final RxString selectedCategory = 'All'.obs;
+    final ExploreSearchController exploreController = Get.put(
+      ExploreSearchController(),
+    );
     final PageController pageController = PageController(viewportFraction: 0.9);
 
     return Scaffold(
@@ -159,10 +163,10 @@ class ExploreScreen extends GetView<HomeController> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        _buildCategoryCard('All', selectedCategory),
-                        _buildCategoryCard('Action', selectedCategory),
-                        _buildCategoryCard('Comedy', selectedCategory),
-                        _buildCategoryCard('Horror', selectedCategory),
+                        _buildCategoryCard('All', exploreController),
+                        _buildCategoryCard('Action', exploreController),
+                        _buildCategoryCard('Comedy', exploreController),
+                        _buildCategoryCard('Horror', exploreController),
                       ],
                     ),
                     const SizedBox(height: 20),
@@ -177,7 +181,14 @@ class ExploreScreen extends GetView<HomeController> {
                           ),
                         ),
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () => Get.toNamed(
+                            AppRoutes.seeAll,
+                            arguments: {
+                              'title': 'Popular Movies',
+                              'movies': exploreController.categoryMovies
+                                  .toList(),
+                            },
+                          ),
                           child: Text(
                             'See All',
                             style: AppTextStyles.bodySmallSemi.copyWith(
@@ -190,7 +201,40 @@ class ExploreScreen extends GetView<HomeController> {
                     const SizedBox(height: 10),
                     SizedBox(
                       height: 220,
-                      child: MovieListWidget(controller: controller),
+                      child: Obx(() {
+                        if (exploreController.isLoadingCategory.value) {
+                          return const Center(
+                            child: CircularProgressIndicator(
+                              color: AppColors.primary,
+                            ),
+                          );
+                        }
+                        if (exploreController.categoryMovies.isEmpty) {
+                          return const Center(
+                            child: Text(
+                              'No popular movies found for this category.',
+                            ),
+                          );
+                        }
+                        return ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: exploreController.categoryMovies.length,
+                          itemBuilder: (context, index) {
+                            final movie =
+                                exploreController.categoryMovies[index];
+                            return Padding(
+                              padding: const EdgeInsets.only(right: 16),
+                              child: GestureDetector(
+                                onTap: () => Get.toNamed(
+                                  AppRoutes.movieDetails,
+                                  arguments: movie,
+                                ),
+                                child: HorizontalMovieCard(movie: movie),
+                              ),
+                            );
+                          },
+                        );
+                      }),
                     ),
                     const SizedBox(height: 20),
                   ],
@@ -228,11 +272,14 @@ class ExploreScreen extends GetView<HomeController> {
     });
   }
 
-  Widget _buildCategoryCard(String title, RxString selectedCategory) {
+  Widget _buildCategoryCard(
+    String title,
+    ExploreSearchController exploreController,
+  ) {
     return Expanded(
       child: GestureDetector(
         onTap: () {
-          selectedCategory.value = title;
+          exploreController.selectedCategory.value = title;
         },
         child: Obx(() {
           return Container(
@@ -240,7 +287,7 @@ class ExploreScreen extends GetView<HomeController> {
             height: 40,
             margin: const EdgeInsets.only(right: 10),
             decoration: BoxDecoration(
-              color: selectedCategory.value == title
+              color: exploreController.selectedCategory.value == title
                   ? AppColors.primary
                   : Colors.transparent,
               borderRadius: BorderRadius.circular(8),
@@ -249,7 +296,7 @@ class ExploreScreen extends GetView<HomeController> {
               child: Text(
                 title,
                 style: AppTextStyles.bodySmallSemi.copyWith(
-                  color: selectedCategory.value == title
+                  color: exploreController.selectedCategory.value == title
                       ? AppColors.white
                       : AppColors.black,
                 ),

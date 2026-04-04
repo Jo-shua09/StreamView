@@ -19,4 +19,5 @@ class AppRoutes {
   static const String explore = '/explore';
   static const String downloads = '/downloads';
   static const String profile = '/profile';
+  static const String seeAll = '/see-all';
 }
