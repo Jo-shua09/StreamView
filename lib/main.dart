@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
+import 'package:streamview/core/widgets/language_settings.dart';
+import 'package:streamview/core/widgets/notification_settings.dart';
+import 'package:streamview/core/widgets/security_settings.dart';
 import 'package:streamview/features/explore/view/search_screen.dart';
 import 'package:streamview/features/movies/view/movie_details.dart';
 import 'package:streamview/features/movies/view/movie_play.dart';
+import 'package:streamview/features/auth/view/change_password.dart';
+import 'package:streamview/features/policies%20&%20help/help_support.dart';
+import 'package:streamview/features/policies%20&%20help/legal_policies.dart';
+import 'package:streamview/features/profile/view/edit_profile.dart';
 import 'package:streamview/features/settings/view/settings_screen.dart';
 import 'core/bindings/home_binding.dart';
 import 'package:streamview/core/widgets/family_sharing.dart';
@@ -97,6 +104,22 @@ class StreamViewApp extends StatelessWidget {
         GetPage(name: AppRoutes.playMovie, page: () => const MoviePlay()),
         GetPage(name: AppRoutes.seeAll, page: () => const SeeAllMovies()),
         GetPage(name: AppRoutes.profile, page: () => const ProfileScreen()),
+        GetPage(name: AppRoutes.editProfile, page: () => const EditProfile()),
+        GetPage(name: AppRoutes.changePassword, page: () => ChangePassword()),
+        GetPage(
+          name: AppRoutes.securitySettings,
+          page: () => SecuritySettings(),
+        ),
+        GetPage(name: AppRoutes.helpSupport, page: () => HelpSupport()),
+        GetPage(name: AppRoutes.legalPolicies, page: () => LegalPolicies()),
+        GetPage(
+          name: AppRoutes.notificationSettings,
+          page: () => NotificationSettings(),
+        ),
+        GetPage(
+          name: AppRoutes.languageSettings,
+          page: () => LanguageSettings(),
+        ),
 
         //!! App Core Routes
         GetPage(name: AppRoutes.explore, page: () => const ExploreScreen()),

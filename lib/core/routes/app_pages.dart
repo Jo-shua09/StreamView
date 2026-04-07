@@ -20,4 +20,11 @@ class AppRoutes {
   static const String profile = '/profile';
   static const String settings = '/settings';
   static const String seeAll = '/see-all';
+  static const String editProfile = '/edit-profile';
+  static const String changePassword = '/change-password';
+  static const String languageSettings = '/language-settings';
+  static const String notificationSettings = '/notification-settings';
+  static const String securitySettings = '/security-settings';
+  static const String legalPolicies = '/legal-policies';
+  static const String helpSupport = '/help-support';
 }

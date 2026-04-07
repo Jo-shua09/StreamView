@@ -3,7 +3,7 @@ import 'package:streamview/features/home/view/home_screen.dart';
 import 'package:streamview/features/explore/view/explore_screen.dart';
 import 'package:streamview/features/downloads/view/download_screen.dart';
 import 'package:streamview/core/widgets/bottom_navigation_bar_widget.dart';
-import 'package:streamview/features/settings/view/settings_screen.dart';
+import 'package:streamview/features/profile/view/profile_screen.dart';
 
 class MainNavigation extends StatefulWidget {
   const MainNavigation({super.key});
@@ -19,7 +19,7 @@ class _MainNavigationState extends State<MainNavigation> {
     const HomeScreen(),
     const ExploreScreen(),
     const DownloadScreen(),
-    const SettingsScreen(),
+    const ProfileScreen(),
   ];
 
   @override

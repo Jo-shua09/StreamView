@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
+import 'package:streamview/core/routes/app_pages.dart';
 import 'package:streamview/core/themes/app_colors.dart';
 import 'package:streamview/core/themes/app_text_styles.dart';
 
@@ -11,7 +13,10 @@ class SettingsScreen extends StatelessWidget {
       backgroundColor: AppColors.white,
       appBar: AppBar(
         backgroundColor: AppColors.white,
-        automaticallyImplyLeading: false,
+        leading: IconButton(
+          onPressed: () => Get.back(),
+          icon: const Icon(Icons.arrow_back_ios_outlined),
+        ),
         centerTitle: true,
         title: Text(
           'Settings',
@@ -29,16 +34,10 @@ class SettingsScreen extends StatelessWidget {
                 const SizedBox(height: 6),
                 _buildNavigationTitle(
                   context,
-                  'Edit Profile',
-                  'Update your personal information.',
-                  Icons.person_outline,
-                ),
-                const SizedBox(height: 16),
-                _buildNavigationTitle(
-                  context,
                   'Change Password',
                   'Update your security credentials.',
                   Icons.lock_outline,
+                  onTap: () => Get.toNamed(AppRoutes.changePassword),
                 ),
                 const SizedBox(height: 16),
                 _buildNavigationTitle(
@@ -46,6 +45,7 @@ class SettingsScreen extends StatelessWidget {
                   'Notifications',
                   'Customize your notification preferences.',
                   Icons.notifications_outlined,
+                  onTap: () => Get.toNamed(AppRoutes.notificationSettings),
                 ),
                 const SizedBox(height: 16),
                 _buildNavigationTitle(
@@ -53,6 +53,7 @@ class SettingsScreen extends StatelessWidget {
                   'Security',
                   'Manage your account security settings.',
                   Icons.security_outlined,
+                  onTap: () => Get.toNamed(AppRoutes.securitySettings),
                 ),
                 const SizedBox(height: 16),
                 _buildNavigationTitle(
@@ -60,6 +61,7 @@ class SettingsScreen extends StatelessWidget {
                   'Language',
                   'Select your preferred language.',
                   Icons.language_outlined,
+                  onTap: () => Get.toNamed(AppRoutes.languageSettings),
                 ),
               ]),
               const SizedBox(height: 20),
@@ -70,21 +72,7 @@ class SettingsScreen extends StatelessWidget {
                   'Legal and Policies',
                   'Read our terms and privacy policy.',
                   Icons.gavel_outlined,
-                ),
-                const SizedBox(height: 16),
-                _buildNavigationTitle(
-                  context,
-                  'Help & Support',
-                  'Get help or contact our support team.',
-                  Icons.help_outline,
-                ),
-                const SizedBox(height: 16),
-                _buildNavigationTitle(
-                  context,
-                  'Logout',
-                  'Sign out of your account safely.',
-                  Icons.logout_outlined,
-                  isDestructive: true,
+                  onTap: () => Get.toNamed(AppRoutes.legalPolicies),
                 ),
               ]),
             ],
@@ -123,6 +111,7 @@ class SettingsScreen extends StatelessWidget {
     String subtitle,
     IconData icon, {
     bool isDestructive = false,
+    VoidCallback? onTap,
   }) {
     return Container(
       decoration: BoxDecoration(
@@ -152,7 +141,7 @@ class SettingsScreen extends StatelessWidget {
           color: isDestructive ? AppColors.error : AppColors.black,
           size: 20,
         ),
-        onTap: () {},
+        onTap: onTap,
       ),
     );
   }

@@ -60,9 +60,7 @@ class HomeScreen extends GetView<HomeController> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         GestureDetector(
-          onTap: () {
-            // Handle menu icon tap
-          },
+          onTap: () => Get.toNamed(AppRoutes.profile),
           child: CircleAvatar(
             radius: 20,
             backgroundColor: AppColors.gray20,

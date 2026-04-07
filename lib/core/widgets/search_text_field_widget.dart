@@ -3,10 +3,18 @@ import 'package:streamview/core/themes/app_colors.dart';
 import 'package:streamview/core/widgets/custom_icon.dart';
 
 class SearchTextFieldWidget extends StatelessWidget {
-  const SearchTextFieldWidget({super.key, required this.onTap, this.onChanged});
+  const SearchTextFieldWidget({
+    super.key,
+    required this.onTap,
+    this.onChanged,
+    this.hintText,
+    this.show = true,
+  });
 
   final VoidCallback? onTap;
   final ValueChanged<String>? onChanged;
+  final String? hintText;
+  final bool show;
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +31,12 @@ class SearchTextFieldWidget extends StatelessWidget {
         ),
         prefixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),
         hintStyle: TextStyle(fontSize: 14, color: AppColors.gray70),
-        suffixIcon: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 2.5, 16, 0),
-          child: CustomIcon(iconName: 'setting-5', size: 16),
-        ),
+        suffixIcon: show
+            ? Padding(
+                padding: const EdgeInsets.fromLTRB(0, 2.5, 16, 0),
+                child: CustomIcon(iconName: 'setting-5', size: 16),
+              )
+            : null,
         suffixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),
         border: OutlineInputBorder(
           borderSide: BorderSide(color: AppColors.black, width: 2),
