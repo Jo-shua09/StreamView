@@ -37,8 +37,8 @@ class BottomNavigationBarWidget extends StatelessWidget {
           label: 'Downloads',
         ),
         BottomNavigationBarItem(
-          icon: _buildIcon(FontAwesomeIcons.user, currentIndex == 3),
-          label: 'Profile',
+          icon: _buildIcon(FontAwesomeIcons.gear, currentIndex == 3),
+          label: 'Settings',
         ),
       ],
     );

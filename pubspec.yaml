@@ -1,5 +1,5 @@
 name: streamview
-description: "A new Flutter project."
+description: "StreamView is a modern, feature-rich movie streaming and discovery application built with **Flutter** and powered by **GetX** for robust state management and routing. It consumes the **OMDb API** to dynamically fetch, search, and display comprehensive movie data including plots, cast, ratings, and posters."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev

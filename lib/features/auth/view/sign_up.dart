@@ -44,6 +44,11 @@ class _SignUpState extends State<SignUp> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextFieldWidget(
+              hintText: 'John Doe',
+              labelText: 'Full Name',
+              keyboardType: TextInputType.name,
+            ),
+            TextFieldWidget(
               hintText: 'example@example.com',
               labelText: 'Email',
               keyboardType: TextInputType.emailAddress,
